@@ -39,13 +39,11 @@ public class Decryption {
                 while (encryptedText.charAt(++i) != ')') {
                     invertedText.append(encryptedText.charAt(i));
                 }
-
                 intermediateText.append(invertedText.reverse());
             } else {
                 intermediateText.append(currentChar);
             }
         }
-
         return intermediateText.toString();
     }
 
@@ -67,13 +65,11 @@ public class Decryption {
                         decryptedChar = (char) ('z' - ('a' - decryptedChar - 1));
                     }
                 }
-
                 decryptedText.append(decryptedChar);
             } else {
                 decryptedText.append(currentChar);
             }
         }
-
         return decryptedText.toString();
     }
 }

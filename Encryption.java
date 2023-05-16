@@ -30,7 +30,6 @@ public class Encryption {
             if (currentChar == ',' || currentChar == '.') {
                 intermediateText.append(currentChar);
             }
-
             if (Character.isLetter(currentChar)) {
                 intermediateText.append(processLetter(currentChar));
             } else if (currentChar == ' ') {
@@ -68,7 +67,6 @@ public class Encryption {
             }
         }
         intermediateText.deleteCharAt(intermediateText.length() - 1);
-
         return intermediateText.toString();
     }
 
@@ -89,7 +87,6 @@ public class Encryption {
             invertedText.setCharAt(caretIndex - 1, '^');
             invertedText.setCharAt(caretIndex, charInFront);
         }
-
         return invertedText.toString();
     }
 
@@ -117,7 +114,6 @@ public class Encryption {
                 encryptedText.append(currentChar);
             }
         }
-
         return encryptedText.toString() + ".";
     }
 }
