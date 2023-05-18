@@ -10,19 +10,6 @@ package dsassignment;
  */
 public class Decryption {
 
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.print("Enter the encrypted text: ");
-//        String encryptedText = scanner.nextLine();
-//
-//        System.out.print("Enter the shift position: ");
-//        int shift = scanner.nextInt();
-//
-//        String intermediateText = SpecialSyntaxOperations(encryptedText);
-//        String decryptedText = decrypt(intermediateText, shift);
-//        System.out.println("Decrypted Text: " + decryptedText);
-//    }
     public static String SpecialSyntaxOperations(String encryptedText) {
         StringBuilder intermediateText = new StringBuilder();
 

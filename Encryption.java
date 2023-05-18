@@ -8,19 +8,6 @@ import java.util.Random;
 
 public class Encryption {
 
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.print("Enter the text to encrypt: ");
-//        String plainText = scanner.nextLine();
-//
-//        System.out.print("Enter the shift position: ");
-//        int shift = scanner.nextInt();
-//
-//        String intermediateText = applySpecialSyntaxOperations(plainText);
-//        String encryptedText = encrypt(intermediateText, shift);
-//        System.out.println("Encrypted Text: " + encryptedText);
-//    }
     public static String applySpecialSyntaxOperations(String plainText) {
         StringBuilder intermediateText = new StringBuilder();
 
@@ -43,7 +30,6 @@ public class Encryption {
         int n = words.length / 10;
         Random rng = new Random();
         int randNum[] = new int[n];
-//        int i=1, j=2;
         for (int i = 0; i < n; i++) {
             randNum[i] = rng.nextInt(words.length - 1);
             String selectedWord = words[randNum[i]];
@@ -117,8 +103,3 @@ public class Encryption {
         return encryptedText.toString() + ".";
     }
 }
-
-//Enter the encrypted text: ^hkcpzl$^jhv$^jhv$av$bzl$^aol$^johpu$^zayhalnlt,$(ojpod)$pz$av$johpu$opz$(zwpozlsaahi)$dpao$zayvun$pyvu$johpuz.
-//Enter the shift position: 7
-//Decrypted Text: Advise Cao Cao to use The Chain Strategem, which is to chain his battleships with strong iron chains.
-
