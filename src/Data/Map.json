@@ -1,0 +1,52 @@
+{
+    "1": {
+        "weight": [10, 18, 20, 16],
+        "edges": [2, 3, 6, 10],
+        "edgeType": ["FOREST", "FLATROAD", "FLATROAD", "FLATROAD"]
+    },
+    "2": {
+        "weight": [10, 10],
+        "edges": [1, 4],
+        "edgeType": ["FOREST", "SWAMP"]
+    },
+    "3": {
+        "weight": [18, 12, 28],
+        "edges": [1, 4, 7],
+        "edgeType": ["FLATROAD", "SWAMP", "PLANKROAD"]
+    },
+    "4": {
+        "weight": [10, 12, 12],
+            "edges": [2, 3, 5],
+        "edgeType": ["SWAMP", "SWAMP", "SWAMP"]
+    },
+    "5": {
+        "weight": [12, 17, 10],
+        "edges": [4, 6, 7],
+        "edgeType": ["SWAMP", "FLATROAD", "FOREST"]
+    },
+    "6": {
+        "weight": [20, 17, 23, 35],
+        "edges": [1, 5, 7, 8],
+        "edgeType": ["FLATROAD", "FLATROAD", "FOREST", "PLANKROAD"]
+    },
+    "7": {
+        "weight": [10, 23, 19, 17],
+        "edges": [5, 6, 8, 9],
+        "edgeType": ["FOREST", "FOREST", "FLATROAD", "FLATROAD"]
+    },
+    "8": {
+        "weight": [35, 19, 7, 12],
+        "edges": [6, 7, 9, 10],
+        "edgeType": ["PLANKROAD", "FLATROAD", "SWAMP", "FOREST"]
+    },
+    "9": {
+        "weight": [17, 7, 18],
+        "edges": [7, 8, 10],
+        "edgeType": ["FLATROAD", "SWAMP", "FLATROAD"]
+    },
+    "10": {
+        "weight": [16, 12, 18],
+        "edges": [1, 8, 9],
+        "edgeType": ["FLATROAD", "FOREST", "FLATROAD"]
+    }
+}

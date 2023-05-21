@@ -1,0 +1,44 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 20 May 2023, 11:38:41 am
+    Author     : Calvern
+*/
+
+
+.passfield{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #838383;
+    -fx-border-width: 2px;
+    -fx-prompt-text-fill: #a7a8a8;
+    
+}
+
+.passfield:focused{
+    -fx-border-color: #d3f9fb;
+    -fx-border-width: 2px;
+}
+
+
+
+.loginButton{
+    -fx-background-color: #9ea1a2;
+    -fx-border-color: #A29F9E;
+    -fx-border-width: .5px;
+        
+}
+
+.loginButton:hover{
+    -fx-background-color: #939393;
+    -fx-border-color: #939393;
+    -fx-border-width: 1px;
+}
+
+.navBarButton{
+    -fx-background-color: pink;
+    -fx-background-radius: 100;
+    -fx-padding: 0;
+    -fx-shape: "M10,0 A10,10 0 1,1 10,20 A10,10 0 1,1 10,0";
+}

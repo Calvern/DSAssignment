@@ -1,0 +1,118 @@
+[{
+        "Name": "Sun Quan",
+        "ArmyType": "CAVALRY",
+        "Role": "Emperor",
+        "Strength": 96,
+        "Leadership": 98,
+        "Intelligence": 72,
+        "Politic": 77,
+        "HitPoint": 95
+    }, {
+        "Name": "Zhang Zhao",
+        "ArmyType": "ARCHER",
+        "Role": "Chief Of Management",
+        "Strength": 22,
+        "Leadership": 80,
+        "Intelligence": 89,
+        "Politic": 99,
+        "HitPoint": 60
+    }, {
+        "Name": "Zhou Yu",
+        "ArmyType": "CAVALRY",
+        "Role": "Chief Of Military",
+        "Strength": 80,
+        "Leadership": 86,
+        "Intelligence": 97,
+        "Politic": 80,
+        "HitPoint": 90
+    }, {
+        "Name": "Xu Sheng",
+        "ArmyType": "ARCHER",
+        "Role": null,
+        "Strength": 90,
+        "Leadership": 78,
+        "Intelligence": 72,
+        "Politic": 40,
+        "HitPoint": 94
+    }, {
+        "Name": "Zhu Ge Jin",
+        "ArmyType": "ARCHER",
+        "Role": null,
+        "Strength": 63,
+        "Leadership": 61,
+        "Intelligence": 88,
+        "Politic": 82,
+        "HitPoint": 71
+    }, {
+        "Name": "Lu Su",
+        "ArmyType": "INFANTRY",
+        "Role": null,
+        "Strength": 43,
+        "Leadership": 87,
+        "Intelligence": 84,
+        "Politic": 88,
+        "HitPoint": 53
+    }, {
+        "Name": "Tai Shi Ci",
+        "ArmyType": "CAVALRY",
+        "Role": null,
+        "Strength": 96,
+        "Leadership": 81,
+        "Intelligence": 43,
+        "Politic": 33,
+        "HitPoint": 97
+    }, {
+        "Name": "Xiao Qiao",
+        "ArmyType": "INFANTRY",
+        "Role":null,
+        "Strength": 42,
+        "Leadership": 52,
+        "Intelligence": 89,
+        "Politic": 77,
+        "HitPoint": 34
+    }, {
+        "Name": "Da Qiao",
+        "ArmyType": "CAVALRY",
+        "Role": null,
+        "Strength": 39,
+        "Leadership": 62,
+        "Intelligence": 90,
+        "Politic": 62,
+        "HitPoint": 41
+    }, {
+        "Name": "Zhou Tai",
+        "ArmyType": "INFANTRY",
+        "Role": null,
+        "Strength": 92,
+        "Leadership": 89,
+        "Intelligence": 72,
+        "Politic": 43,
+        "HitPoint": 99
+    }, {
+        "Name": "Gan Ning",
+        "ArmyType": "ARCHER",
+        "Role": null,
+        "Strength": 98,
+        "Leadership": 92,
+        "Intelligence": 45,
+        "Politic": 23,
+        "HitPoint": 97
+    }, {
+        "Name": "Lu Meng",
+        "ArmyType": "CAVALRY",
+        "Role": null,
+        "Strength": 70,
+        "Leadership": 77,
+        "Intelligence": 93,
+        "Politic": 83,
+        "HitPoint": 88
+    }, {
+        "Name": "Huang Gai",
+        "ArmyType": "INFANTRY",
+        "Role": null,
+        "Strength": 83,
+        "Leadership": 98,
+        "Intelligence": 72,
+        "Politic": 42,
+        "HitPoint": 89
+    }]
