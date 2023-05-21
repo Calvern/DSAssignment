@@ -9,5 +9,5 @@ package threekingdoms;
  * @author user
  */
 public class StrawBoat {
-    
+   
 }
