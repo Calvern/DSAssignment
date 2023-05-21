@@ -18,17 +18,19 @@ public class ClustersDetector {
         String line;
         while (sc.hasNextLine()) {
             line = sc.nextLine();
-            if (!line.contains("1") || !line.contains("0")) {
-                System.out.println("Invalid Input\nOnly 1 and 0 is allowed for denoting battleships!!");
-                return;
-            }
+
             if (line.isEmpty()) {
                 break;
             }
             sb.append(line).append("\n");
         }
         String structure = sb.toString().replaceAll(" ", "");
+
         char[][] battleships = getBattleships(structure);
+        if (battleships == null) {
+            System.out.println("Invalid Input, Please enter only 0,1 and spaces for your input");
+            return;
+        }
         int numCluster = numClusters(battleships);
         System.out.printf("Number of Clusters: %d clusters", numCluster);
     }
@@ -38,6 +40,11 @@ public class ClustersDetector {
         char[][] battleships = new char[rows.length][];
         for (int i = 0; i < rows.length; i++) {
             battleships[i] = rows[i].toCharArray();
+            for (char nodes : battleships[i]) {
+                if (nodes != '1' && nodes != '0') {
+                    return null;
+                }
+            }
         }
         return battleships;
     }
