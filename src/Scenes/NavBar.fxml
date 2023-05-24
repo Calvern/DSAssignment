@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="803.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainPageController">
+<AnchorPane id="AnchorPane" prefHeight="803.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NavBarController">
    <children>
-      <AnchorPane prefHeight="803.0" prefWidth="94.0" style="-fx-background-color: #8b4513;">
+      <AnchorPane prefHeight="803.0" prefWidth="94.0" style="-fx-background-color: #AB5953; -fx-border-color: #FDDA99; -fx-border-width: 3px;">
          <children>
             <VBox alignment="CENTER" layoutY="9.0" prefHeight="780.0" prefWidth="104.0" spacing="28.0">
                <children>
@@ -24,6 +24,6 @@
             </VBox>
          </children>
       </AnchorPane>
-      <StackPane fx:id="pageContainer" layoutX="104.0" prefHeight="803.0" prefWidth="1196.0" style="-fx-background-image: url(&quot;/Assets/MainMenu.jpeg&quot;);" />
+      <StackPane fx:id="pageContainer" layoutX="110.0" prefHeight="803.0" prefWidth="1190.0" />
    </children>
 </AnchorPane>

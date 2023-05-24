@@ -6,14 +6,14 @@ package Controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.fxml.Initializable;            
 
 /**
  * FXML Controller class
  *
  * @author user
  */
-public class MainPageController implements Initializable {
+public class SearchPageController implements Initializable {
 
     /**
      * Initializes the controller class.

@@ -4,11 +4,9 @@
  */
 package threekingdoms;
 
-
 import Graph.Graph;
 import PathFinders.HamiltonianCycle;
 import java.util.ArrayList;
-
 
 /**
  *
@@ -63,7 +61,14 @@ public class WarriorsCamp {
     }
 
     public static void addGeneral(Warriors generals) {
-        WarriorsCamp.Generals.add(generals);
+        if (generals.getIntelligence() > generals.getStrength()) {
+            generals.setRole("Department of Management");
+            WarriorsCamp.Generals.add(generals);
+        } else if (generals.getIntelligence() < generals.getStrength()) {
+            generals.setRole("Department of Military");
+            WarriorsCamp.Generals.add(generals);
+
+        }
     }
 
     public static Warriors getGeneral(String name) {
@@ -150,7 +155,7 @@ public class WarriorsCamp {
                 this.children = new ArrayList<>();
             }
 
-        }
+        }   
 
     }
 }

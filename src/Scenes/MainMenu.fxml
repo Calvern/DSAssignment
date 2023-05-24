@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="803.0" prefWidth="1196.0" style="-fx-background-image: url(&quot;/Assets/MainMenu.jpeg&quot;);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainMenuController">
+    
+</AnchorPane>
+  

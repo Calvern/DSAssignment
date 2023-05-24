@@ -80,7 +80,7 @@ public class StrawBoat {
                 Arrays.fill(arrowReceived, i, arrows.length, 0);
                 break;
             }
-
+            
             int arrow = (int) Math.floor(arrows[i] * (strawmen / 100.0));
             arrowReceived[i] = arrow;
             boatDirection[i] = direction;

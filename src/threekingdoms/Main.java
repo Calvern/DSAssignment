@@ -5,14 +5,18 @@
 package threekingdoms;
 
 import Graph.Graph;
-import javafx.scene.paint.Color;
+import PathFinders.HamiltonianCycle;
+
 import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.scene.image.Image;
+
 import javafx.stage.Stage;
 
 /**
@@ -21,13 +25,17 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    public static void main(String[] args) {
+
+    
+
+   public static void main(String[] args) {
         ArrayList<Warriors> warriors = JsonReader.getWarriorsList(JsonReader.readJSONFile("/Users/user/NetBeansProjects/ThreeKingdoms/src/Data/Warriors.json"));
 
         WarriorsCamp.organizeCamp(warriors);
         Graph graph = JsonReader.getGraph(JsonReader.readJSONFile("/Users/user/NetBeansProjects/ThreeKingdoms/src/Data/Map.json"));
         ArrayList<ArrayList<Warriors>> warrior = TeamFormer.getTeam(Teams.S_TEAM, Abilities.POLITIC);
-        System.out.println(warrior);
+        //WarriorsCamp.showHierachy();
+        //HamiltonianCycle.FoodHarvester(graph, 6, Teams.S_TEAM, Abilities.POLITIC);
         launch(args);
     }
 
@@ -38,7 +46,7 @@ public class Main extends Application {
         Image icon = new Image("/Assets/GameIcon.jpeg");
         stage.getIcons().add(icon);
         stage.setResizable(false);
-       
+
         stage.setScene(scene);
         stage.setTitle("Three Kingdoms");
         stage.show();

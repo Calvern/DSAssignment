@@ -15,7 +15,6 @@ import threekingdoms.Teams;
  * @author user
  */
 public class HamiltonianCycle {
-
     private static int targetPathSize;
     private static double foodHarvested;
 

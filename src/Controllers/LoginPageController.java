@@ -39,7 +39,7 @@ public class LoginPageController {
     Label invalidPassword;
     @FXML
     PasswordField passwordField;
-    
+
     @FXML
     Button LoginButton;
 
@@ -51,7 +51,7 @@ public class LoginPageController {
             invalidPassword.setText("ERRORRR!!");
 
         } else {
-            Parent root = FXMLLoader.load(getClass().getResource("/Scenes/MainPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Scenes/NavBar.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             ScaleTransition transitionToMain = new ScaleTransition(Duration.seconds(2.5));
@@ -60,20 +60,20 @@ public class LoginPageController {
             transitionToMain.setToX(3.0);
             transitionToMain.setToY(3.0);
             transitionToMain.setInterpolator(Interpolator.EASE_BOTH);
-            
-            FadeTransition fadeOutTransition=new FadeTransition(Duration.seconds(0.2));
+
+            FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(0.2));
             fadeOutTransition.setFromValue(1.0);
             fadeOutTransition.setToValue(0.0);
             WelcomeLabel.setOpacity(0.0);
             passwordField.setOpacity(0.0);
             LoginButton.setOpacity(0.0);
             invalidPassword.setOpacity(0.0);
-            SequentialTransition transition = new SequentialTransition(transitionToMain,fadeOutTransition);
-            transition.setOnFinished(e-> {
+            SequentialTransition transition = new SequentialTransition(transitionToMain, fadeOutTransition);
+            transition.setOnFinished(e -> {
                 stage.setScene(scene);
             });
-           transition.setNode(stage.getScene().getRoot());
-           transition.play();
+            transition.setNode(stage.getScene().getRoot());
+            transition.play();
 
         }
 

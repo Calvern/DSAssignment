@@ -7,13 +7,31 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : Calvern
 */
 
+* {
+    -fx-dark-brown: #462C2A;
+    -fx-dark-red: #AB5953;
+    -fx-red: #EC6450;
+    -fx-beige: #EAD6C4;
+    -fx-yellow: #FDDA99;
+    -fx-radio-radius: 10px;
+}
+
+
+.h4{
+
+    -fx-font-size: 16px;
+    -fx-fill: -fx-yellow;
+    -fx-font-weight: 500;
+    -fx-text-alignment: left;
+
+}
 
 .passfield{
     -fx-background-color: #ffffff;
     -fx-border-color: #838383;
     -fx-border-width: 2px;
     -fx-prompt-text-fill: #a7a8a8;
-    
+
 }
 
 .passfield:focused{
@@ -27,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #9ea1a2;
     -fx-border-color: #A29F9E;
     -fx-border-width: .5px;
-        
+
 }
 
 .loginButton:hover{
@@ -37,8 +55,80 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .navBarButton{
-    -fx-background-color: pink;
+    -fx-background-color: #CCCCCC;
     -fx-background-radius: 100;
     -fx-padding: 0;
     -fx-shape: "M10,0 A10,10 0 1,1 10,20 A10,10 0 1,1 10,0";
+}
+.button {
+    -fx-background-color: -fx-dark-red;
+    -fx-background-radius: 50px;
+
+    -fx-font-size: 20px;
+    -fx-fill: -fx-yellow;
+    -fx-font-weight: 400;
+    -fx-text-alignment: center;
+    -fx-border-width: 3;
+    -fx-border-color: -fx-yellow;
+    -fx-border-radius: 100;
+    -fx-text-fill: -fx-beige;
+    -fx-cursor: default;
+}
+.button-transparent {
+    -fx-background-color: transparent;
+    -fx-background-radius: 1px;
+    -fx-fill: -fx-yellow;
+    -fx-font-weight: 400;
+    -fx-border-width: 0;
+    -fx-border-color: -fx-yellow;
+    -fx-border-radius: 1;
+    -fx-text-alignment: center;
+    -fx-text-fill: -fx-beige;
+    -fx-cursor: default;
+}
+
+.card{
+    -fx-fill: -fx-dark-red;
+    -fx-arc-height: 20;
+    -fx-arc-width: 20;
+    -fx-stroke-width: 3;
+    -fx-stroke: -fx-yellow;
+
+}
+
+.warList {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+
+.warList > .viewport {
+    -fx-background-color: transparent;
+
+}
+
+.choice-box{
+    -fx-background-color: -fx-dark-red;
+    -fx-mark-color: -fx-yellow;
+}
+
+.choice-box > .label{
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+
+.choice-box .context-menu {
+    -fx-background-color: -fx-dark-red;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: orange;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: black;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: black;
 }
