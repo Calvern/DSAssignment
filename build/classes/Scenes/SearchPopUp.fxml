@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/design.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SearchPageController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#807364" height="600.0" stroke="BLACK" strokeType="INSIDE" width="800.0" />
+      <Label alignment="CENTER" layoutX="272.0" layoutY="147.0" prefHeight="65.0" prefWidth="256.0" text="Select your option" textAlignment="CENTER" textFill="#ead6c4">
+         <font>
+            <Font name="Palatino" size="31.0" />
+         </font>
+      </Label>
+      <StackPane layoutX="185.0" layoutY="383.0">
+         <children>
+            <Button fx:id="searchGeneral" mnemonicParsing="false" onAction="#searchGeneral" prefHeight="65.0" prefWidth="175.0" text="Search General" wrapText="true" />
+         </children>
+      </StackPane>
+      <Button fx:id="searchTeam" layoutX="441.0" layoutY="383.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="175.0" text="Search Team" wrapText="true" />
+      <ChoiceBox fx:id="generalAttribute" layoutX="325.0" layoutY="314.0" prefWidth="150.0" visible="false" />
+      <TextField fx:id="attributeValue" layoutX="309.0" layoutY="383.0" prefHeight="35.0" prefWidth="182.0" styleClass="smallTextField" visible="false" />
+      <Button fx:id="startSearch" layoutX="354.0" layoutY="483.0" mnemonicParsing="false" onAction="#searchForGeneral" text="Search" visible="false" />
+      <Button fx:id="backButton" layoutX="200.0" layoutY="255.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="72.0" style="-fx-font-size: 15px;" text="Back" visible="false" />
+      <Label fx:id="invalidWarning" layoutX="309.0" layoutY="438.0" textFill="#f20000">
+         <font>
+            <Font name="Palatino" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="generalsList" alignment="TOP_CENTER" layoutX="263.0" layoutY="318.0" prefHeight="200.0" prefWidth="256.0" styleClass="h4" textFill="#ead6c4">
+         <font>
+            <Font name="Palatino" size="29.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

@@ -36,5 +36,6 @@
       </ScrollPane>
       <Button fx:id="toHierachyButton" layoutX="937.0" layoutY="37.0" mnemonicParsing="false" onAction="#toHierachy" text="Hierachy" />
       <ChoiceBox fx:id="AttributeSorter" layoutX="107.0" layoutY="88.0" prefHeight="45.0" prefWidth="201.0" />
+      <Button fx:id="searchButton" layoutX="944.0" layoutY="98.0" mnemonicParsing="false" onAction="#showPopUp" prefHeight="45.0" prefWidth="94.0" text="Search" wrapText="true" />
    </children>
 </AnchorPane>

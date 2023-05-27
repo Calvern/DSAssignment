@@ -3,32 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Assets/GameIcon.jpeg</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/GraphProvider.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/CSS/design.css</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/PathFinders/HamiltonianCycle.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Data/Warriors.json</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Assets/LoginPage.jpeg</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Graph/Edge.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/PathFinders/BFS.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Controllers/MainPageController.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/Teams.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Scenes/MainPage.fxml</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/WarriorsCamp.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Graph/EdgeType.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/TeamFormer.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Scenes/LoginPage.fxml</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Data/Map.json</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Graph/Graph.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Controllers/LoginPageController.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/Warriors.java</file>
             <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/Main.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/PathFinders/Djisktra.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/JsonReader.java</file>
+            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/CSS/design.css</file>
             <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/WarriorsSorter.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/AbilityComparator.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/PathFinders/DjisktraTime.java</file>
-            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/threekingdoms/Abilities.java</file>
+            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Controllers/CharacterCardsController.java</file>
+            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Data/Warriors.json</file>
+            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Controllers/LoginPageController.java</file>
+            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Scenes/SearchPopUp.fxml</file>
+            <file>file:/Users/user/NetBeansProjects/ThreeKingdoms/src/Controllers/SearchPageController.java</file>
         </group>
     </open-files>
 </project-private>

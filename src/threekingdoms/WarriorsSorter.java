@@ -75,9 +75,11 @@ public class WarriorsSorter {
         while(low<=high){
             int middle=low+(high-low)/2;
             if(sorted[middle].getAbility(ab)>=target){
-                high=middle-1;
-            }else{
                 low=middle+1;
+               // high=middle-1;
+            }else{
+                //low=middle+1;
+                high=middle-1;
             }
             if(sorted[middle].getAbility(ab)==target){
                 index=middle;
@@ -93,9 +95,11 @@ public class WarriorsSorter {
         while(low<=high){
             int middle=low+(high-low)/2;
             if(sorted[middle].getAbility(ab)<=target){
-                low=middle+1;
-            }else{
                 high=middle-1;
+                //low=middle+1;
+            }else{
+                //high=middle-1;
+                low=middle+1;
             }
             if(sorted[middle].getAbility(ab)==target){
                 index=middle;

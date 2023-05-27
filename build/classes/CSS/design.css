@@ -132,3 +132,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .choice-box .menu-item:focused > .label {
     -fx-text-fill: black;
 }
+
+.smallTextField {
+    -fx-background-color: -fx-yellow;
+    -fx-background-radius: 50px;
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-size: 12.8px;
+    -fx-text-fill: -fx-dark-brown;
+    -fx-font-weight: 300;
+    -fx-text-alignment: left;
+    -fx-padding: 0 20;
+    -fx-cursor: default;
+}
+
+.list-cell{
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-yellow;
+    -fx-font-size: 24px;
+    -fx-text-alignment: center;
+}
+
+.list-view{
+    -fx-background-color:transparent;
+}
+

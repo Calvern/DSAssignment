@@ -23,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import threekingdoms.Abilities;
 import threekingdoms.Warriors;
@@ -49,6 +50,9 @@ public class CharacterPageController implements Initializable {
     private Button toHierachyButton;
     @FXML
     private ChoiceBox<Abilities> AttributeSorter;
+
+    @FXML
+    private Button searchButton;
 
     /**
      * Initializes the controller class.
@@ -80,6 +84,7 @@ public class CharacterPageController implements Initializable {
                 final String name = warrior[i].getName();
                 cardsController.setContent(name);
                 //final int index=i;
+
                 nodes[i].setOnMousePressed(event -> {
                     switchToDetailsScene(name, event);
                 });
@@ -92,7 +97,7 @@ public class CharacterPageController implements Initializable {
         }
     }
 
-    private void switchToDetailsScene(String name, MouseEvent event) {
+    public  void switchToDetailsScene(String name, MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Scenes/WarriorsDetails.fxml"));
             Parent root = loader.load();
@@ -112,5 +117,14 @@ public class CharacterPageController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void showPopUp(ActionEvent event) throws IOException {
+        Parent root= FXMLLoader.load(getClass().getResource("/Scenes/SearchPopUp.fxml"));
+        Popup searchpage=new Popup();
+        searchpage.setAutoHide(true);
+        searchpage.getContent().add(root);
+        searchpage.show((Stage) ((Node) event.getSource()).getScene().getWindow());
+        
     }
 }
