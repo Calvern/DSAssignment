@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dsassignment;
+package threekingdoms;
 
 /**
  *
@@ -21,12 +21,22 @@ public class Decryption {
             } else if (currentChar == '$') {
                 intermediateText.append(' ');
             } else if (currentChar == '(') {
+                int openCount = 1;
                 StringBuilder invertedText = new StringBuilder();
 
-                while (encryptedText.charAt(++i) != ')') {
-                    invertedText.append(encryptedText.charAt(i));
+                while (openCount > 0) {
+                    char nextChar = encryptedText.charAt(++i);
+                    if (nextChar == '(') {
+                        openCount++;
+                    } else if (nextChar == ')') {
+                        openCount--;
+                    }
+                    if (openCount > 0) {
+                        invertedText.append(nextChar);
+                    }
                 }
-                intermediateText.append(invertedText.reverse());
+                String decryptedSubText = SpecialSyntaxOperations(invertedText.toString()); // Recursively decrypt the nested parentheses
+                intermediateText.append(new StringBuilder(decryptedSubText).reverse());
             } else {
                 intermediateText.append(currentChar);
             }

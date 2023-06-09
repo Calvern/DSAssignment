@@ -2,57 +2,80 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dsassignment;
+package threekingdoms;
 
-import java.util.Random;
+import java.util.Collections;
+import java.util.List;
 
 public class Encryption {
 
-    public static String applySpecialSyntaxOperations(String plainText) {
+    public static String applySpecialSyntaxOperations(String plainText, List<Integer> selectedIndexes) {
         StringBuilder intermediateText = new StringBuilder();
 
         for (int i = 0; i < plainText.length(); i++) {
             char currentChar = plainText.charAt(i);
 
-            if (currentChar == ',' || currentChar == '.') {
-                intermediateText.append(currentChar);
-            }
             if (Character.isLetter(currentChar)) {
                 intermediateText.append(processLetter(currentChar));
             } else if (currentChar == ' ') {
                 intermediateText.append("$");
+            } else {
+                intermediateText.append(currentChar);
             }
         }
 
         String inputString = intermediateText.toString();
         String[] words = inputString.split("\\$");
 
-        int n = words.length / 10;
-        Random rng = new Random();
-        int randNum[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            randNum[i] = rng.nextInt(words.length - 1);
-            String selectedWord = words[randNum[i]];
-            String invertedWord = invertWord(selectedWord);
-            words[randNum[i]] = invertedWord;
-        }
-
         intermediateText.setLength(0);
-        int k = 0;
-        for (int j = 0; j < words.length; j++) {
-            if (j == randNum[k]) {
-                intermediateText.append("(").append(words[j]).append(")");
-                if (k != randNum.length - 1) {
-                    k++;
+
+        for (int i = 0; i < words.length; i++) {
+            if (selectedIndexes.contains(i)) {
+                if (Collections.frequency(selectedIndexes, i) > 1) {
+                    int repetitionCount = Collections.frequency(selectedIndexes, i);
+                    StringBuilder repeatedParentheses = new StringBuilder();
+                    StringBuilder repeatedReversedParentheses = new StringBuilder();
+                    for (int j = 0; j < repetitionCount; j++) {
+                        repeatedParentheses.append("(");
+                    }
+
+                    String word = words[i];
+                    if (!word.startsWith("(")) {
+                        String invertedWord = "";
+                        for (int j = 0; j < repetitionCount; j++) {
+                            invertedWord = invertWord(word);
+                            word = invertWord(word);
+                        }
+                        intermediateText.append(repeatedParentheses).append(invertedWord);
+                        words[i] = repeatedParentheses + invertedWord; // Update the word in the words array
+                    } else {
+                        intermediateText.append(word);
+                    }
+
+                    for (int j = 0; j < repetitionCount; j++) {
+                        repeatedReversedParentheses.append(")");
+                    }
+                    intermediateText.append(repeatedReversedParentheses);
+                } else {
+                    String word = words[i];
+                    if (!word.startsWith("(")) {
+                        String invertedWord = invertWord(word);
+                        intermediateText.append("(").append(invertedWord).append(")");
+                        words[i] = "(" + invertedWord + ")"; // Update the word in the words array
+                    } else {
+                        intermediateText.append(word);
+                    }
                 }
+
+                selectedIndexes.remove((Integer) i); // Remove the processed index
             } else {
-                intermediateText.append(words[j]);
+                intermediateText.append(words[i]);
             }
-            if (j < words.length - 1) {
+
+            if (i < words.length - 1) {
                 intermediateText.append("$");
             }
         }
-        intermediateText.deleteCharAt(intermediateText.length() - 1);
         return intermediateText.toString();
     }
 
@@ -73,6 +96,8 @@ public class Encryption {
             invertedText.setCharAt(caretIndex - 1, '^');
             invertedText.setCharAt(caretIndex, charInFront);
         }
+//        invertedText = invertedText.append("(").append(invertedText).append(")");
+
         return invertedText.toString();
     }
 
@@ -100,6 +125,12 @@ public class Encryption {
                 encryptedText.append(currentChar);
             }
         }
-        return encryptedText.toString() + ".";
+        return encryptedText.toString();
     }
+
+//    public static void main(String[] args) {
+//        String intermediateText = Encryption.applySpecialSyntaxOperations("ab cd ef");
+//        String encryptedText = Encryption.encrypt(intermediateText, 7);
+//        System.out.println("Encrypted: " + encryptedText);
+//    }
 }
