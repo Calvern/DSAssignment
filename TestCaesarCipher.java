@@ -18,6 +18,7 @@ public class TestCaesarCipher {
         Scanner scanner = new Scanner(System.in);
         String originTxt = "Advise Cao Cao to use The Chain Strategem, which is to chain his battleships with strong iron chains.";
         String cipherText = "^hkcpzl$^jhv$^jhv$av$bzl$^aol$^johpu$^zayhalnlt,$(ojpod)$pz$av$johpu$opz$(zwpozlsaahi)$dpao$zayvun$pyvu$johpuz.";
+//        String cipherText = "((1234567890=!@#))$^&*()xdlyafbpvw[]\\hzkmnoqrs;'gejciut,./?><\":|}{741258963.0/*-+";
         String secretKey = "0123456789ABCDEF";
         int shift = 7;
 
@@ -29,8 +30,9 @@ public class TestCaesarCipher {
         System.out.println("Origin Text: Advise Cao Cao to use The Chain Strategem, which is to chain his battleships with strong iron chains.");
         System.out.println("Starting from now, please enter 'y' for yes and 'n' for no when answering the questions.");
 
-//        System.out.println("Enter a text to be encrypted using cipher: ");
-//        originTxt = scanner.next();
+        System.out.println("Enter a text to be encrypted using cipher: ");
+        originTxt = scanner.nextLine();
+
         // Encrypting the text
         System.out.println("Enter [y/n] to encrypt the text: ");
         String YOrN = scanner.next();
@@ -43,16 +45,18 @@ public class TestCaesarCipher {
             List<Integer> selectedIndexes = new LinkedList<>();
             System.out.println("Enter the index of the word that you wish to invert (Enter -1 to exit): ");
             int n;
+            int maxIndex = originTxt.contains(" ") ? originTxt.split("\\s+").length : 1;
+
             while (true) {
                 try {
                     n = sc.nextInt();
                     if (n == -1) {
                         break; // Exit the loop if -1 is entered
                     }
-                    if (n >= 0 && n < originTxt.length()) {
+                    if (n >= 0 && n < maxIndex) {
                         selectedIndexes.add(n);
                     } else {
-                        System.out.println("Invalid input. Please enter a valid index within the range of 0 to " + (originTxt.length() - 1));
+                        System.out.println("Invalid input. Please enter a valid index within the range of 0 to " + maxIndex);
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a valid integer index.");
@@ -77,6 +81,7 @@ public class TestCaesarCipher {
         while (!useAES.equals("y") && !useAES.equals("n")) {
             System.out.print("Would you like to use AES encryption? [y/n]: ");
             useAES = scanner.next();
+//            System.out.println("");
             if (!useAES.equals("y") && !useAES.equals("n")) {
                 System.out.println("Invalid input. Please enter 'y' for yes or 'n' for no.");
             }
@@ -101,8 +106,16 @@ public class TestCaesarCipher {
         // Applying Caesar Cipher
         while (useCC.equals("y")) {
             System.out.print("Enter the start index and end index: ");
-            int startIndex = scanner.nextInt();
-            int endIndex = scanner.nextInt();
+            // Handle invalid input (non-integer values)
+            int startIndex, endIndex;
+            try {
+                startIndex = scanner.nextInt();
+                endIndex = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Invalid input. Please enter integer values for the start and end indices.");
+                scanner.nextLine(); // Clear the invalid input from the buffer
+                continue;
+            }
 
             if (startIndex >= endIndex || startIndex < 0 || endIndex >= cipherText.length()) {
                 System.out.println("Error: Invalid indices. Please enter valid start and end indices within the range of 0 to " + (cipherText.length() - 1));
@@ -154,10 +167,7 @@ public class TestCaesarCipher {
         if (useDec.equals("y")) { //Removal of Caesar Cipher - &num{}
             for (Map.Entry<IndexData, Integer> entry : indexNumMap.entrySet()) {
                 IndexData indexData = entry.getKey();
-                int startIndex = indexData.startIndex;
-                int endIndex = indexData.endIndex;
                 Integer number = entry.getValue();
-//                System.out.println(number);
                 encryptedText = AESUtils.SpecialSyntaxOperations(encryptedText, number);
                 intermediateText = encryptedText;
                 System.out.println("Current decipher text: " + intermediateText);

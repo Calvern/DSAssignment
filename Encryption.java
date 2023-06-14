@@ -96,8 +96,6 @@ public class Encryption {
             invertedText.setCharAt(caretIndex - 1, '^');
             invertedText.setCharAt(caretIndex, charInFront);
         }
-//        invertedText = invertedText.append("(").append(invertedText).append(")");
-
         return invertedText.toString();
     }
 
