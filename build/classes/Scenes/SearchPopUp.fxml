@@ -22,7 +22,7 @@
             <Button fx:id="searchGeneral" mnemonicParsing="false" onAction="#searchGeneral" prefHeight="65.0" prefWidth="175.0" text="Search General" wrapText="true" />
          </children>
       </StackPane>
-      <Button fx:id="searchTeam" layoutX="441.0" layoutY="383.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="175.0" text="Search Team" wrapText="true" />
+      <Button fx:id="searchTeam" layoutX="441.0" layoutY="383.0" mnemonicParsing="false" onAction="#SearchTeam" prefHeight="65.0" prefWidth="175.0" text="Search Team" wrapText="true" />
       <ChoiceBox fx:id="generalAttribute" layoutX="325.0" layoutY="314.0" prefWidth="150.0" visible="false" />
       <TextField fx:id="attributeValue" layoutX="309.0" layoutY="383.0" prefHeight="35.0" prefWidth="182.0" styleClass="smallTextField" visible="false" />
       <Button fx:id="startSearch" layoutX="354.0" layoutY="483.0" mnemonicParsing="false" onAction="#searchForGeneral" text="Search" visible="false" />
@@ -32,9 +32,15 @@
             <Font name="Palatino" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="generalsList" alignment="TOP_CENTER" layoutX="263.0" layoutY="318.0" prefHeight="200.0" prefWidth="256.0" styleClass="h4" textFill="#ead6c4">
+      <Label fx:id="generalsList" alignment="TOP_CENTER" layoutX="272.0" layoutY="316.0" prefHeight="200.0" prefWidth="256.0" styleClass="h4" textFill="#ead6c4">
          <font>
             <Font name="Palatino" size="29.0" />
          </font></Label>
+      <ChoiceBox fx:id="TeamTypes" layoutX="325.0" layoutY="387.0" prefWidth="150.0" visible="false" />
+      <Button fx:id="startSearchTeam" layoutX="356.0" layoutY="483.0" mnemonicParsing="false" onAction="#searchForTeam" text="Search" visible="false">
+         <font>
+            <Font name="Palatino" size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

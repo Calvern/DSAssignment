@@ -4,6 +4,7 @@
  */
 package threekingdoms;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -11,28 +12,39 @@ import java.util.Scanner;
  * @author user
  */
 public class ClustersDetector {
-
-    public static void clusterCounter() {
+    public static void main(String[] args) {
+        RedCliffOnFire();
+    }
+    public static void RedCliffOnFire() {
         Scanner sc = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
-        String line;
-        while (sc.hasNextLine()) {
-            line = sc.nextLine();
+        while (true) {
+            try {
+                System.out.println("Please enter position of battleships in the 2D matrix form, where 1 denotes battleship and 0 denotes position without battleship");
+                String line;
+                while (sc.hasNextLine()) {
+                    line = sc.nextLine();
 
-            if (line.isEmpty()) {
+                    if (line.isEmpty()) {
+                        break;
+                    }
+                    sb.append(line).append("\n");
+                }
+                String structure = sb.toString().replaceAll(" ", "");
+                char[][] battleships = getBattleships(structure);
+                if (battleships == null) {
+                    throw new IllegalArgumentException();
+                    
+                }
+                int numCluster = numClusters(battleships);
+                System.out.printf("Number of Cluster: %d clusters\n", numCluster);
                 break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid Input!! Please try again.\n");
+                sb.setLength(0);
             }
-            sb.append(line).append("\n");
         }
-        String structure = sb.toString().replaceAll(" ", "");
 
-        char[][] battleships = getBattleships(structure);
-        if (battleships == null) {
-            System.out.println("Invalid Input, Please enter only 0,1 and spaces for your input");
-            return;
-        }
-        int numCluster = numClusters(battleships);
-        System.out.printf("Number of Clusters: %d clusters", numCluster);
     }
 
     private static char[][] getBattleships(String input) {
@@ -77,7 +89,7 @@ public class ClustersDetector {
 
     private static void dfs(char[][] grid, int i, int j, boolean[][] visited) {
         //handling out of bounds conditions and visited/non relevant cells
-        if (i < 0 || i >= grid.length || j < 0 || j >= grid[1].length || grid[i][j] != '1' || visited[i][j]) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[i].length || grid[i][j] != '1' || visited[i][j]) {
             return;
         }
 

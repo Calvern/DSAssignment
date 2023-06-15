@@ -16,6 +16,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-radio-radius: 10px;
 }
 
+.h2{
+
+    -fx-font-size: 20px;
+    -fx-fill: -fx-yellow;
+    -fx-font-weight: 400;
+    -fx-text-alignment: center;
+}
 
 .h4{
 
@@ -144,6 +151,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-padding: 0 20;
     -fx-cursor: default;
 }
+
+.largeTextField {
+    -fx-background-color: -fx-yellow;
+    -fx-background-radius: 50px;
+    -fx-font-size: 39.06px;
+    -fx-fill: -fx-yellow;
+    -fx-font-weight: 500;
+    -fx-text-alignment: center;
+    -fx-padding: 0 20;
+    -fx-cursor: default;
+}
+
+
+.alert{
+    -fx-background-color: -fx-yellow;
+}
+
+
 
 .list-cell{
     -fx-background-color: transparent;

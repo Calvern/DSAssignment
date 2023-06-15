@@ -8,8 +8,10 @@ import Graph.Edge;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 /**
  *
@@ -17,23 +19,34 @@ import java.util.Queue;
  */
 public class BFS {
 
-    public static void BFSPathFinder(HashMap<Integer, ArrayList<Edge>> adjList, int dst) {
-        if (!adjList.containsKey(dst)) {
-            System.out.println("Destination Node not found!");
-            return;
+    public static void fottrestAttacker(HashMap<Integer, ArrayList<Edge>> adjList) {
+        
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter the base camp for the enemy base camp: ");
+            try {
+                int dst = sc.nextInt();
+                if (!adjList.containsKey(dst)) {
+                    throw new IllegalArgumentException();
+                }
+                System.out.println();
+                ArrayList<ArrayList<Integer>> allPaths = BFS(adjList, dst);
+                if (allPaths.isEmpty()) {
+                    System.out.println("No Paths are found from node 1 to base camp");
+                    break;
+                }
+                ArrayList<ArrayList<Integer>> bestPaths = BFS.findBestPath(allPaths);
+                System.out.println("All possible paths:");
+                BFS.printPaths(allPaths);
+                System.out.println("\nBest Paths:");
+                BFS.printPaths(bestPaths);
+                break;
+            } catch (IllegalArgumentException | InputMismatchException e) {
+                System.out.println("Invalid Input!! Please enter again. \n");
+                sc.nextLine();
+            }
 
         }
-        
-        ArrayList<ArrayList<Integer>> allPaths = BFS(adjList, dst);
-        if (allPaths.isEmpty()) {
-            System.out.println("No Paths are found from node 1 to base camp");
-            return;
-        }
-        ArrayList<ArrayList<Integer>> bestPaths = BFS.findBestPath(allPaths);
-        System.out.println("All possible paths:");
-        BFS.printPaths(allPaths);
-        System.out.println("Best Paths:");
-        BFS.printPaths(bestPaths);
     }
 
     //Implementing BFS as basic feature, assuming all paths are the same without considering their respective weight(distance)

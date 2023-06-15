@@ -9,18 +9,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 /**
  *
  * @author user
  */
-public class Djisktra {
+public class Dijkstra {
 
-    public static void ShortestPathCalculator(HashMap<Integer, ArrayList<Edge>> adjList, int dest) {
-        if (dest <= 1 || dest > 10) {
-            System.out.println("Invalid Node");
+    public static void main(String[] args) {
+
+    }
+
+    public static void DijkstraPathFinder(HashMap<Integer, ArrayList<Edge>> adjList) {
+        Scanner sc = new Scanner(System.in);
+        int dst = -1;
+        while (true) {
+            try {
+                System.out.print("Enter the base camp for the enemy base camp: ");
+
+                dst = sc.nextInt();
+                if (dst < 1 || dst > 10) {
+                    throw new IllegalArgumentException();
+                }
+                System.out.println("");
+                break;
+            } catch (IllegalArgumentException | InputMismatchException e) {
+                System.out.println("Invalid Input!!. Please enter again");
+                sc.nextLine();
+            }
         }
+
         // Initialize all distances as INFIINITY from source
         HashMap<Integer, Integer> distances = new HashMap<>();
         for (Integer nodes : adjList.keySet()) {
@@ -34,10 +55,9 @@ public class Djisktra {
         for (Integer nodes : adjList.keySet()) {
             prevNodes.put(nodes, -1);
         }
-        
+
         //Creating array for determining whether best distance for the node has been found
         boolean[] visited = new boolean[adjList.size() + 1];
-
 
         //Create a priority queue of nodes arranged by their distance from the source node, which is node 1
         PriorityQueue<Integer> queue = new PriorityQueue<>((v1, v2) -> distances.get(v1).compareTo(distances.get(v2)));
@@ -47,7 +67,7 @@ public class Djisktra {
         while (!queue.isEmpty()) {
             int current = queue.poll();
             visited[current] = true;
-            if (current == dest) {
+            if (current == dst) {
                 break;
             }
 
@@ -68,7 +88,7 @@ public class Djisktra {
 
         // Construct the path from the source to the dest vertex using the prevNode map
         ArrayList<Integer> path = new ArrayList<>();
-        int current = dest;
+        int current = dst;
         while (current != -1) {
             path.add(current);
             current = prevNodes.get(current);
@@ -87,8 +107,9 @@ public class Djisktra {
                 }
             }
         }*/
+        System.out.print("Shortest Path: ");
         printPath(path);
-        System.out.printf("Total Distance Travelled: (%dkm)\n", distances.get(dest));
+        System.out.printf("Total Distance Travelled: (%dkm)\n\n", distances.get(dst));
     }
 
     private static void printPath(ArrayList<Integer> path) {

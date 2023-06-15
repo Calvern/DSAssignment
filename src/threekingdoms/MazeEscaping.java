@@ -22,11 +22,8 @@ public class MazeEscaping {
     private static final int[] ROW_OFFSETS = {-1, 1, 0, 0};  // Up, down, left, right
     private static final int[] COL_OFFSETS = {0, 0, -1, 1};
 
-    public static void main(String[] args) {
-        findEscapePath();
-    }
-
     public static void findEscapePath() {
+        System.out.println("Path that Cao Cao could have escaped:");
         char[][] maze = getMaze();
         int[] startLocation = findStart(maze);
         boolean[][] visited = new boolean[maze.length][maze[0].length];
@@ -47,7 +44,7 @@ public class MazeEscaping {
 
     private static void dfs(int row, int col, boolean[][] visited, char[][] maze) {
         if (maze[row][col] == '3') {
-            
+
             printMaze(maze);
             return;
         }
@@ -80,11 +77,11 @@ public class MazeEscaping {
             {2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
             {1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-            {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+            {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
             {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1},
             {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1},
             {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 3},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         };
@@ -101,9 +98,10 @@ public class MazeEscaping {
     private static void printMaze(char[][] maze) {
         for (char[] row : maze) {
             for (char column : row) {
-                System.out.print(column+" ");
+                System.out.print(column + " ");
             }
             System.out.println();
         }
+        System.out.print("\n\n");
     }
 }

@@ -20,6 +20,23 @@ public class TeamFormer {
         return team;
     }
 
+    public static Teams evaluateTeam(String[] warriors, Abilities ab) {
+        int totalValue = 0;
+        for (String warrior : warriors) {
+            Warriors war = WarriorsCamp.getGeneral(warrior);
+            totalValue += war.getAbility(ab);
+        }
+        if (totalValue <= Teams.C_TEAM.getMaxscore()) {
+            return Teams.C_TEAM;
+        } else if (totalValue <= Teams.B_TEAM.getMaxscore()) {
+            return Teams.B_TEAM;
+        } else if (totalValue <= Teams.A_TEAM.getMaxscore()) {
+            return Teams.A_TEAM;
+        } else {
+            return Teams.S_TEAM;
+        }
+    }
+
     private static void formTeam(Teams type, Abilities ab) {
         team = new ArrayList<>();
         Warriors[] generals = WarriorsSorter.getSortedGenerals(ab);
@@ -31,11 +48,14 @@ public class TeamFormer {
                 if (sum >= type.getMinscore() && sum < type.getMaxscore()) {
                     ArrayList<Warriors> warriors = new ArrayList<>(Arrays.asList(generals[i], generals[start], generals[end]));
                     team.add(warriors);
-                    start++;
-                } else if (sum < type.getMinscore()) {
-                    start++;
-                } else {
                     end--;
+                    //start++;
+                } else if (sum < type.getMinscore()) {
+                    end--;
+                    //start++;
+                } else {
+                    start++;
+                    //end--;
                 }
             }
         }

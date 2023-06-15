@@ -6,6 +6,7 @@ package threekingdoms;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -18,11 +19,14 @@ public class StrawBoat {
     public static String[] boatDirection;
     public static int[] arrowReceived;
 
+   
+
     public static void ArrowBorrowing() {
         Scanner sc = new Scanner(System.in);
         HashMap<String, Integer> strawmen = new HashMap<>();
         HashMap<String, Integer> usedAttempts = new HashMap<>();
-        System.out.println("Enter the number of straw men");
+        String[] directions = {"Front", "Left", "Right", "Back"};
+        /*System.out.println("Enter the number of straw men for each direction");
         System.out.print("Front: ");
         int front = sc.nextInt();
         strawmen.put("Front", front);
@@ -39,32 +43,59 @@ public class StrawBoat {
         int back = sc.nextInt();
         strawmen.put("Back", back);
         usedAttempts.put("Back", 0);
+        sc.nextLine();*/
+        System.out.println("Enter the number of straw men for each direction");
+        for (String direction : directions) {
+            while (true) {
+                try {
+                    System.out.print(direction + ": ");
+                    int value = sc.nextInt();
+                    strawmen.put(direction, value);
+                    usedAttempts.put(direction, 0);
+                    break; // Exit the loop on valid input
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input!! Please enter again\n");
+                    sc.nextLine();
+                }
+            }
+        }
         sc.nextLine();
 
-        System.out.println("Enter the number of arrows for each wave in descending order, space to indicate a seperate wave:");
-        String waves = sc.nextLine();
-        String[] temp = waves.split("\\s+");
-        int[] arrows = new int[temp.length];
+        outerloop:while (true) {
+            try {
+                System.out.println("Enter the number of arrows for each wave in descending order, space to indicate a seperate wave:");
+                String waves = sc.nextLine();
+                String[] temp = waves.split("\\s+");
+                int[] arrows = new int[temp.length];
 
-        int prevArrow = Integer.MAX_VALUE;
-        for (int i = 0; i < temp.length; i++) {
-            int arrow = Integer.parseInt(temp[i]);
-            if (arrow >= prevArrow) {
-                System.out.println("Error!!!! Arrows should be in descending order.");
-                return;
+                int prevArrow = Integer.MAX_VALUE;
+                for (int i = 0; i < temp.length; i++) {
+                    int arrow = Integer.parseInt(temp[i]);
+                    if (arrow > prevArrow) {
+                        System.out.println("Error!!!! Arrows should be in descending order.");
+                        continue outerloop;
+                    }
+                    prevArrow = arrow;
+                }
+                for (int i = 0; i < arrows.length; i++) {
+                    arrows[i] = Integer.parseInt(temp[i]);
+                }
+                arrowReceived = new int[arrows.length];
+                boatDirection = new String[arrows.length];
+
+                int totalarrow = ArrowMaximizer(strawmen, arrows, usedAttempts);
+                System.out.println();
+                String output = "Arrow Capturing Outcome:\n";
+                output += ("Boat direction: " + Arrays.toString(boatDirection) + "\n");
+                output += ("Arrow received: " + Arrays.toString(arrowReceived) + "\n");
+                output += "Total arrow received: " + totalarrow;
+                System.out.println(output);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input!! Please enter again\n");
             }
-            prevArrow = arrow;
         }
 
-        for (int i = 0; i < arrows.length; i++) {
-            arrows[i] = Integer.parseInt(temp[i]);
-        }
-        arrowReceived = new int[arrows.length];
-        boatDirection = new String[arrows.length];
-        int totalarrow = ArrowMaximizer(strawmen, arrows, usedAttempts);
-        System.out.println("Boat direction: " + Arrays.toString(boatDirection));
-        System.out.println("Arrow received: " + Arrays.toString(arrowReceived));
-        System.out.println(totalarrow);
     }
 
     private static int ArrowMaximizer(HashMap<String, Integer> strawmenDirection, int[] arrows, HashMap<String, Integer> usedAttempts) {
@@ -80,7 +111,7 @@ public class StrawBoat {
                 Arrays.fill(arrowReceived, i, arrows.length, 0);
                 break;
             }
-            
+
             int arrow = (int) Math.floor(arrows[i] * (strawmen / 100.0));
             arrowReceived[i] = arrow;
             boatDirection[i] = direction;

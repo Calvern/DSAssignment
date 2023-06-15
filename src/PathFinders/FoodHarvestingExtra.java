@@ -10,16 +10,19 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import threekingdoms.Abilities;
+import threekingdoms.TeamFormer;
 import threekingdoms.Teams;
+import threekingdoms.Warriors;
+import threekingdoms.WarriorsCamp;
 
 /**
  *
  * @author user
  */
-public class HamiltonianCycle {
+public class FoodHarvestingExtra {
 
     private static int targetPathSize;
-    //private static double foodHarvested;
+    private static double foodHarvested;
 
     private static boolean isValidNode(int nodeWithoutFood) {
         return (nodeWithoutFood == -1 || (nodeWithoutFood > 1 && nodeWithoutFood <= 10));
@@ -28,7 +31,8 @@ public class HamiltonianCycle {
     /*private static boolean isValidAbility(Abilities ab) {
         return (ab == Abilities.POLITIC || ab == Abilities.INTELLIGENCE);
     }*/
-    public static void FoodHarvester(Graph graph) {
+    public static void FoodHarvesterI(Graph graph) {
+        foodHarvested=0;
         Scanner sc = new Scanner(System.in);
         int size = graph.getSize();
         int nodeWithoutFood = -1;
@@ -46,21 +50,63 @@ public class HamiltonianCycle {
                 sc.nextLine();
             }
         }
+        sc.nextLine();
+        String warrior1, warrior2, warrior3 = null;
+        while (true) {
+            try {
+                System.out.println("List of Generals");
+                int index = 1;
+                ArrayList<Warriors> generals = WarriorsCamp.getGenerals();
+                for (Warriors general : generals) {
+                    System.out.println((index++) + ". " + general);
+                }
+                System.out.print("Please choose your generals among the list: ");
+                System.out.print("Warrior 1: ");
+                warrior1 = sc.nextLine();
+                System.out.println("Warrior 2: ");
+                warrior2 = sc.nextLine();
+                System.out.println("Warrior 3: ");
+                warrior3 = sc.nextLine();
 
-        /*  if (!isValidAbility(ab)) {
-            System.out.println("Only Politics and Intelligence Abilities are allowed to go harvesting!!!!");
-            return;
-        }*/
+                if (!WarriorsCamp.hasGeneral(warrior1) || !WarriorsCamp.hasGeneral(warrior2) || !WarriorsCamp.hasGeneral(warrior3) | warrior1.equals(warrior2) || warrior1.equals(warrior3) || warrior2.equals(warrior3)) {
+                    throw new IllegalArgumentException();
+                }
+                break;
+            } catch (IllegalArgumentException | InputMismatchException e) {
+                System.out.println("Invalid Input! Please enter again.\n");
+            }
+        }
+
+        Abilities ab = null;
+        while (true) {
+            try {
+                System.out.print("1.Politics\n2.Intelligence\nEnter the field of abilities: ");
+                int choice = sc.nextInt();
+                if (choice == 1) {
+                    ab = Abilities.POLITIC;
+                } else if (choice == 2) {
+                    ab = Abilities.INTELLIGENCE;
+                } else {
+                    throw new IllegalArgumentException();
+                }
+                break;
+            } catch (IllegalArgumentException | InputMismatchException e) {
+                System.out.println("Invalid Input! Please enter again.\n");
+                sc.nextLine();
+            }
+        }
+        Teams team = TeamFormer.evaluateTeam(new String[]{warrior1, warrior2, warrior3}, ab);
+        System.out.println("The team that you have chosen is " + team.toString());
         boolean[] visited = new boolean[size + 1];
         ArrayList<Integer> path = new ArrayList<>();
         ArrayList<String> paths = new ArrayList<>();
         targetPathSize = (nodeWithoutFood == -1) ? size : size - 1;
         path.add(1);
         visited[1] = true;
-        paths = findHamCycles(graph, visited, path, 1, paths, nodeWithoutFood);
+        paths = findHamCycles(graph, visited, path, 1, paths, nodeWithoutFood, team, ab, false);
         if (paths.isEmpty()) {
             targetPathSize = size;
-            paths = findHamCycles(graph, visited, path, 1, paths, -1);
+            paths = findHamCycles(graph, visited, path, 1, paths, -1, team, ab, true);
             if (paths.isEmpty()) {
                 System.out.println("No Paths Found!");
             } else {
@@ -70,7 +116,7 @@ public class HamiltonianCycle {
 
                     System.out.println(cycles);
                 }
-                //System.out.println("Food Harvested: " + foodHarvested);
+                System.out.println("Food Harvested: " + foodHarvested);
             }
         } else {
             System.out.println("Possible paths:");
@@ -78,11 +124,11 @@ public class HamiltonianCycle {
 
                 System.out.println(cycles);
             }
-            //System.out.println("Food Harvested: " + foodHarvested);
+            System.out.println("Food Harvested: " + foodHarvested);
         }
     }
 
-    private static ArrayList<String> findHamCycles(Graph graph, boolean[] visited, ArrayList<Integer> path, int pos, ArrayList<String> paths, int nodeWithoutFood) {
+    private static ArrayList<String> findHamCycles(Graph graph, boolean[] visited, ArrayList<Integer> path, int pos, ArrayList<String> paths, int nodeWithoutFood, Teams team, Abilities ab, boolean secAttempt) {
         if (pos == targetPathSize) {
             for (Edge edge : graph.getAdjList().get(path.get(path.size() - 1))) {
                 if (edge.getDest() == 1) {
@@ -96,18 +142,18 @@ public class HamiltonianCycle {
                     path.remove(path.size() - 1);
                 }
             }
-            //foodHarvested = targetPathSize * calculateHarvestedNodes(team, ab);
             return paths;
         }
         for (int i = 2; i <= graph.getSize(); i++) {
             if (isSafe(graph, visited, i, nodeWithoutFood, path)) {
                 path.add(i);
                 visited[i] = true;
-                paths = findHamCycles(graph, visited, path, pos + 1, paths, nodeWithoutFood);
+                paths = findHamCycles(graph, visited, path, pos + 1, paths, nodeWithoutFood, team, ab, secAttempt);
                 path.remove(path.size() - 1);
                 visited[i] = false;
             }
         }
+        foodHarvested = (secAttempt) ? (targetPathSize - 2) * calculateHarvestedNodes(team, ab) : (targetPathSize-1 )* calculateHarvestedNodes(team, ab);
         return paths;
     }
 
@@ -119,7 +165,7 @@ public class HamiltonianCycle {
 
     }
 
-    /* private static double calculateHarvestedNodes(Teams team, Abilities ab) {
+    private static double calculateHarvestedNodes(Teams team, Abilities ab) {
         switch (team) {
             case S_TEAM:
                 return (ab == Abilities.POLITIC) ? 100 * 2.0
@@ -135,6 +181,7 @@ public class HamiltonianCycle {
                         : 100 * 0.8;
             default:
                 return 0;
-        }*/
-    //}
+        }
+    }
+
 }

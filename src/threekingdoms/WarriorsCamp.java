@@ -26,9 +26,16 @@ public class WarriorsCamp {
                 WarriorsCamp.setChiefMilitary(warrior);
             } else if (warrior.getRole().equals("Chief Of Management")) {
                 WarriorsCamp.setChiefManagement(warrior);
-            } else {
+            } else if(warrior.getRole().equals("null")){
                 WarriorsCamp.addGeneral(warrior);
+            }else{
+                System.out.println("Invalid type of role set for the generals. Please check on the Warriors.json file");
+                System.exit(0);
             }
+        }
+        if(Emperor==null||ChiefManagement==null||ChiefMilitary==null){
+            System.out.println("Invalid Warriors Data input, Please check on Warriors.json file. Might have missing emperor or chiefs");
+            System.exit(0);
         }
     }
 
@@ -80,8 +87,17 @@ public class WarriorsCamp {
         System.out.println("General not found");
         return null;
     }
+    public static boolean hasGeneral(String name){
+        for (Warriors general : WarriorsCamp.Generals) {
+            if (general.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void showHierachy() {
+        System.out.println("Hierachy of Generals\n*----------------------------------------------------------------*");
         WarriorsTree.setEmperor(Emperor);
         WarriorsTree.setChiefOfManagement(ChiefManagement);
         WarriorsTree.setChiefOfMilitary(ChiefMilitary);
@@ -116,11 +132,9 @@ public class WarriorsCamp {
         private static void addGenerals(ArrayList<Warriors> generals) {
             for (Warriors general : generals) {
                 Node warrior = new Node(general);
-                if (general.getIntelligence() > general.getStrength()) {
-                    warrior.info.setRole("Department of Management");
+                if (warrior.info.getRole().equals("Department of Management")) {
                     chiefOfManagement.children.add(warrior);
-                } else if (general.getIntelligence() < general.getStrength()) {
-                    warrior.info.setRole("Department of Military");
+                } else if (warrior.info.getRole().equals("Department of Military")) {
                     chiefOfMilitary.children.add(warrior);
                 }
             }

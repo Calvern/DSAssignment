@@ -5,6 +5,8 @@
 package threekingdoms;
 
 import Graph.Edge;
+import Graph.Graph;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -13,9 +15,23 @@ import java.util.HashMap;
  */
 public class GraphProvider {
 
-    public static HashMap<Integer, Edge> adjList = new HashMap<>();
+    private static HashMap<Integer, ArrayList<Edge>> adjList = new HashMap<>();
+    private static Graph graph_cur;
 
-    public static void setadjList(HashMap<Integer,Edge>adjList) {
-        GraphProvider.adjList=adjList;
+    public static void setGraph(Graph graph) {
+        graph_cur = graph;
+        GraphProvider.adjList=graph_cur.getAdjList();
+    }
+
+    public static Graph getGraph() {
+        return graph_cur;
+    }
+
+    public static void setadjList(HashMap<Integer, ArrayList<Edge>> adjList) {
+        GraphProvider.adjList = adjList;
+    }
+
+    public static HashMap<Integer, ArrayList<Edge>> getadjList() {
+        return adjList;
     }
 }
