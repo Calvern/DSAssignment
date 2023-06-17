@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
+import threekingdoms.GraphProvider;
 
 /**
  *
@@ -19,25 +20,23 @@ import java.util.Scanner;
  */
 public class Dijkstra {
 
-    public static void main(String[] args) {
-
-    }
-
-    public static void DijkstraPathFinder(HashMap<Integer, ArrayList<Edge>> adjList) {
+    public static void DijkstraPathFinder() throws InterruptedException {
+        HashMap<Integer, ArrayList<Edge>> adjList = GraphProvider.getadjList();
         Scanner sc = new Scanner(System.in);
         int dst = -1;
         while (true) {
             try {
-                System.out.print("Enter the base camp for the enemy base camp: ");
+                System.out.println("You are now trying to find the best path to enemy base camp while considering the distances between each node. Our base camp is 1.");
+                System.out.print("Enter the base camp for the enemy base camp (2-10): ");
 
                 dst = sc.nextInt();
-                if (dst < 1 || dst > 10) {
+                if (dst < 2 || dst > 10) {
                     throw new IllegalArgumentException();
                 }
                 System.out.println("");
                 break;
             } catch (IllegalArgumentException | InputMismatchException e) {
-                System.out.println("Invalid Input!!. Please enter again");
+                System.out.println("Invalid Input!!. Please enter again.\n");
                 sc.nextLine();
             }
         }
@@ -95,18 +94,9 @@ public class Dijkstra {
         }
         Collections.reverse(path);
 
-        //Calculating totalDistance travelled from base Camp to fortress
-        /*int totalDistance = 0;
-        for (int i = 1; i < path.size(); i++) {
-            int sourceVertex = path.get(i - 1);
-            int destVertex = path.get(i);
-            for (Edge edge : adjList.get(sourceVertex)) {
-                if (edge.getDest() == destVertex) {
-                    totalDistance += edge.getWeight();
-                    break;
-                }
-            }
-        }*/
+
+        System.out.println("Finding the shortest path to enemy base camp...\n");
+        Thread.sleep(1000);
         System.out.print("Shortest Path: ");
         printPath(path);
         System.out.printf("Total Distance Travelled: (%dkm)\n\n", distances.get(dst));
@@ -114,7 +104,6 @@ public class Dijkstra {
 
     private static void printPath(ArrayList<Integer> path) {
         String str = "";
-        int total = 0;
         for (int i = 0; i < path.size(); i++) {
             str += path.get(i);
             str += (i == path.size() - 1) ? "" : "->";

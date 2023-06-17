@@ -15,9 +15,6 @@ import java.util.Scanner;
  */
 public class WarriorsSorter {
 
-    public static void main(String[] args) {
-        soldierArrangement();
-    }
 
     public static void soldierArrangement() {
 
@@ -48,12 +45,14 @@ public class WarriorsSorter {
                 break;
             case 2:
                 WarriorsSorter.printSearchedGenerals();
+                break;
             case 3:
                 WarriorsSorter.printTeam();
+                break;
         }
     }
 
-    public static void printTeam() {
+    private static void printTeam() {
         Scanner sc = new Scanner(System.in);
         Abilities ab = null;
         int target = -1;
@@ -88,7 +87,7 @@ public class WarriorsSorter {
         System.out.println();
         Teams team = null;
         while (true) {
-            System.out.print("1.S Team\n2.A Team\n3.B Team\n4.C Team\nPlease enter the type of team to be formed: ");
+            System.out.print("1.S Team (Sum of Ability >= 250)\n2.A Team (Sum of Ability >= 220)\n3.B Team (Sum Of Ability >= 190)\n4.C Team (Sum of Ability <  190)\nPlease enter the type of team to be formed: ");
             try {
                 int choice = sc.nextInt();
                 switch (choice) {
@@ -112,7 +111,7 @@ public class WarriorsSorter {
         }
         System.out.println();
         ArrayList<ArrayList<Warriors>> list = TeamFormer.getTeam(team, ab);
-        System.out.println("Teams available:\n\n");
+        System.out.println("Teams available:\n");
         for (int i = 0; i < list.size(); i++) {
             System.out.print((i + 1) + ". ");
             System.out.println(list.get(i));
@@ -120,12 +119,12 @@ public class WarriorsSorter {
         }
     }
 
-    public static void printSearchedGenerals() {
+    private static void printSearchedGenerals() {
         Scanner sc = new Scanner(System.in);
         Abilities ab = null;
         int target = -1;
         while (true) {
-            System.out.print("1.Strength\n2.Leadership\n3.Intelligence\n4.Politics\n5.Hit Point\nEnter the attiribute to form team  : ");
+            System.out.print("1.Strength\n2.Leadership\n3.Intelligence\n4.Politics\n5.Hit Point\nEnter the attiribute to search  : ");
             try {
                 int choice = sc.nextInt();
                 switch (choice) {
@@ -151,6 +150,7 @@ public class WarriorsSorter {
 
             }
         }
+        System.out.println();
         while (true) {
             System.out.print("Please enter the value of the attribute you want to search for ( 0-100 ): ");
             try {
@@ -164,6 +164,7 @@ public class WarriorsSorter {
                 sc.nextLine();
             }
         }
+        System.out.println();
         Warriors[] warrior = WarriorsSorter.search(ab, target);
         if (warrior == null) {
             System.out.println("No general found");
@@ -175,7 +176,7 @@ public class WarriorsSorter {
         }
     }
 
-    public static void printSortedGenerals() {
+    private static void printSortedGenerals() {
         Scanner sc = new Scanner(System.in);
         Abilities ab = null;
 
@@ -206,6 +207,7 @@ public class WarriorsSorter {
 
             }
         }
+        System.out.println();
         Warriors[] warrior = getSortedGenerals(ab);
         System.out.println("Generals Sorted By " + ab.toString().toLowerCase());
         for (int i = 0; i < warrior.length; i++) {
@@ -223,11 +225,71 @@ public class WarriorsSorter {
             sortedGenerals[i++] = general;
         }
 
-        quickSort(ab, sortedGenerals, 0, sortedGenerals.length - 1);
+        //quickSort(ab, sortedGenerals, 0, sortedGenerals.length - 1);
+        mergeSort(sortedGenerals,ab);
         return sortedGenerals;
     }
+      private static void mergeSort(Warriors[] sortedGenerals,Abilities ab) {
+        int length = sortedGenerals.length;
+        if (length <= 1) {//length<2
+            return;
+        }
+        int middle = length / 2;
+        Warriors[] leftArray = new Warriors[middle];
+        Warriors[] rightArray = new Warriors[length - middle];
+        int i = 0;//left array
+        int j = 0;//right array
+        for (; i < length; i++) {
+            if (i < middle) {
+                leftArray[i] = sortedGenerals[i];
+            } else {
+                rightArray[j++] = sortedGenerals[i];
+                
+            }
+        }
 
-    private static void quickSort(Abilities ab, Warriors[] array, int start, int end) {
+        mergeSort(leftArray,ab);
+       
+        mergeSort(rightArray,ab);
+
+        
+        merge(leftArray, rightArray, sortedGenerals,ab);
+
+        
+        
+    
+    }
+
+    private static void merge(Warriors[] leftArray, Warriors[] rightArray, Warriors[] array,Abilities ab) {
+        int leftSize = leftArray.length; 
+        int rightSize = rightArray.length;
+        int i = 0, l = 0, r = 0;
+       
+        //Check the conditions for merging
+        while (l < leftSize && r < rightSize) {
+            if (AbilityComparator.ComparatorSwitcher(ab, leftArray[l], rightArray[r])<0) {
+                array[i] = leftArray[l];
+                i++;
+                l++;
+            } else {
+                array[i] = rightArray[r];
+                i++;
+                r++;
+            }
+        }
+        while (l < leftSize) {
+            array[i] = leftArray[l];
+            i++;
+            l++;
+
+        }
+        while(r<rightSize){
+            array[i]=rightArray[r];
+            i++;
+            r++;
+        }
+    }
+   /* private static void quickSort(Abilities ab, Warriors[] array, int start, int end) {
         if (end <= start) {
             return;//base case
         }
@@ -254,7 +316,7 @@ public class WarriorsSorter {
         array[i] = array[end];
         array[end] = temp;
         return i;
-    }
+    }*/
 
     public static Warriors[] search(Abilities ab, int target) {
         // get descending order by attribute type

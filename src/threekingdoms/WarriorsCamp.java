@@ -67,7 +67,7 @@ public class WarriorsCamp {
         return Generals;
     }
 
-    public static void addGeneral(Warriors generals) {
+    private static void addGeneral(Warriors generals) {
         if (generals.getIntelligence() > generals.getStrength()) {
             generals.setRole("Department of Management");
             WarriorsCamp.Generals.add(generals);

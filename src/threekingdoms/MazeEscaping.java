@@ -19,15 +19,27 @@ public class MazeEscaping {
      * starting point of Cao Cao. 3: exit point of the maze.
      *
      */
+    public static void main(String[] args) {
+        findEscapePath();
+    }
     private static final int[] ROW_OFFSETS = {-1, 1, 0, 0};  // Up, down, left, right
     private static final int[] COL_OFFSETS = {0, 0, -1, 1};
 
     public static void findEscapePath() {
-        System.out.println("Path that Cao Cao could have escaped:");
-        char[][] maze = getMaze();
-        int[] startLocation = findStart(maze);
-        boolean[][] visited = new boolean[maze.length][maze[0].length];
-        dfs(startLocation[0], startLocation[1], visited, maze);
+        try {
+            char[][] maze = getMaze();
+            int[] startLocation = findStart(maze);
+            boolean[][] visited = new boolean[maze.length][maze[0].length];
+            System.out.println("Path that Cao Cao could have escaped:");
+            boolean[] pathFound = {false};
+            System.out.println();
+            dfs(startLocation[0], startLocation[1], visited, maze, pathFound);
+            if (!pathFound[0]) {
+                System.out.println("There is no possible paths for Cao Cao to escape");
+            }
+        } catch (IllegalArgumentException e) {
+            //System.out.println("Invalid Maze");
+        }
     }
 
     private static int[] findStart(char[][] maze) {
@@ -39,12 +51,12 @@ public class MazeEscaping {
             }
         }
         System.out.println("Starting point not found");
-        return null;
+        throw new IllegalArgumentException();
     }
 
-    private static void dfs(int row, int col, boolean[][] visited, char[][] maze) {
+    private static void dfs(int row, int col, boolean[][] visited, char[][] maze, boolean[] pathFound) {
         if (maze[row][col] == '3') {
-
+            pathFound[0] = true;
             printMaze(maze);
             return;
         }
@@ -56,7 +68,7 @@ public class MazeEscaping {
             int newRow = row + ROW_OFFSETS[i];
             int newCol = col + COL_OFFSETS[i];
             if (isPath(newRow, newCol, visited, maze)) {
-                dfs(newRow, newCol, visited, maze);
+                dfs(newRow, newCol, visited, maze, pathFound);
             }
 
         }
@@ -72,25 +84,39 @@ public class MazeEscaping {
     }
 
     private static char[][] getMaze() {
-        int[][] MAZE = {
+        boolean hasEnd = false;
+        final int[][] MAZE = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
             {1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-            {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+            {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
             {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1},
             {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 3},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         };
-        char[][] maze = new char[MAZE.length][MAZE[0].length];
+
+        char[][] maze = new char[MAZE.length][];
         for (int i = 0; i < MAZE.length; i++) {
+            maze[i] = new char[MAZE[i].length];
             for (int j = 0; j < MAZE[i].length; j++) {
                 maze[i][j] = Character.forDigit(MAZE[i][j], 10);
+                if (maze[i][j] != '0' && maze[i][j] != '1' && maze[i][j] != '2' && maze[i][j] != '3') {
+                    System.out.println("Invalid Input Maze");
+                    throw new IllegalArgumentException();
+                }
+                if (maze[i][j] == '3') {
+                    hasEnd = true;
+                }
             }
 
+        }
+        if (!hasEnd) {
+            System.out.println("Exit point not found");
+            throw new IllegalArgumentException();
         }
         return maze;
     }

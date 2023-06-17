@@ -15,8 +15,6 @@ import java.util.Scanner;
  */
 public class CaeserCipher {
 
-   
-
     public static void start() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -41,24 +39,14 @@ public class CaeserCipher {
         }
     }
 
-    /*public static void main(String[] args) {
-        int shift = 7;
-        String message = "ADVISE?";
-
-        String encryptedMessage = encrypt(message, shift);
-        System.out.println("Encrypted message: " + encryptedMessage);
-
-        String decryptedMessage = decrypt(encryptedMessage, 7);
-        System.out.println("Decrypted message: " + decryptedMessage);
-    }*/
     private static void encrypt() {
         Scanner sc = new Scanner(System.in);
         String message = "";
         while (true) {
             try {
-                System.out.print("Please enter the text you want to encrypt (Please do not enter '^','$' and '()' ): ");
+                System.out.print("Please enter the text you want to encrypt (Please do not enter '^', '$', '@' and '()' ): ");
                 message = sc.nextLine();
-                if (message.contains("^") || message.contains("$") || message.contains("(") || message.contains(")")) {
+                if (message.isBlank() || message.contains("^") || message.contains("$") || message.contains("(") || message.contains(")") || message.contains("@")) {
                     throw new IllegalArgumentException();
                 }
                 break;
@@ -97,11 +85,13 @@ public class CaeserCipher {
                 encrypted.append((char) (base + offset));
             } else if (Character.isSpaceChar(c)) {
                 encrypted.append("$");
+            } else if (c == '\t') {
+                encrypted.append("@");
             } else {
                 encrypted.append(c);
             }
         }
-        int length = message.length();
+
         ArrayList<Integer> duplicate = new ArrayList<>();
         while (true) {
             try {
@@ -131,6 +121,7 @@ public class CaeserCipher {
                 encrypted.replace(index1, index2 + 1, inverseText(text));
                 encrypted.insert(index1, "(");
                 encrypted.insert(index2 + 2, ")");
+                System.out.println();
             } catch (IllegalArgumentException | InputMismatchException e) {
                 System.out.println(e.toString());
                 System.out.println("Invalid Input!!. Please enter again.\n");
@@ -138,6 +129,7 @@ public class CaeserCipher {
             }
 
         }
+        System.out.println();
         System.out.println("Encrypted Text: " + encrypted.toString());
     }
 
@@ -162,19 +154,19 @@ public class CaeserCipher {
 
     private static void decrypt() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
-        String encryptedMessage="";
+        String encryptedMessage = "";
         while (true) {
             try {
-                System.out.println("Rules:\n1.'^' indicating character after this is capatalized\n2.'&' indicating space\n3.'()' indicating inverted text inside parenthesis.\n\nThus, no space and capital letters are allowed in the text.\n\nUSE THESE SYMBOLS CAUTIOUSLY");
+                System.out.println("Rules:\n1.'^' indicating character after this is capatalized\n2.'&' indicating space\n3.'()' indicating inverted text inside parenthesis.\n4.'@' indicating a tab character\n\nThus, no spaces, tabs and capital letters are allowed in the text.\n\nUSE THESE SYMBOLS CAUTIOUSLY");
                 System.out.print("Please enter the text you want to decrypt : ");
                 encryptedMessage = sc.nextLine();
-                for(char c: encryptedMessage.toCharArray()){
-                    if(Character.isUpperCase(c)||Character.isSpaceChar(c)){
+                for (char c : encryptedMessage.toCharArray()) {
+                    if (Character.isUpperCase(c) || Character.isSpaceChar(c)||c=='\t') {
                         throw new IllegalArgumentException();
                     }
                 }
                 break;
-            }catch(IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("Invalid Input!! Please enter again.\n");
             }
         }
@@ -205,9 +197,12 @@ public class CaeserCipher {
                 decrypted.append(reversed.reverse().toString());
                 reversed.setLength(0);
                 isInverted = false;
+            } else if (c == '@') {
+                decrypted.append("\t");
             } else if (Character.isLetter(c)) {
                 int base = 'a';
-                int offset = (c - base - shift + 26) % 26;
+                int offset = (c - base - shift) % 26;
+                offset = (offset + 26) % 26;
                 if (isInverted) {
                     if (isUpperCase) {
                         reversed.append(Character.toUpperCase((char) (base + offset)));
@@ -226,27 +221,28 @@ public class CaeserCipher {
 
             } else if (Character.isDigit(c)) {
                 int base = '0';
-                int offset = (c - base - shift + 10) % 10;
+                int offset = (c - base - shift) % 10;
+                offset = (offset + 10) % 10;
                 if (isInverted) {
                     reversed.append((char) (base + offset));
                 } else {
                     decrypted.append((char) (base + offset));
                 }
-                isUpperCase=false;
+                isUpperCase = false;
             } else if (c == '$') {
                 if (isInverted) {
                     reversed.append(" ");
                 } else {
                     decrypted.append(" ");
                 }
-                isUpperCase=false;
+                isUpperCase = false;
             } else {
                 if (isInverted) {
                     reversed.append(c);
                 } else {
                     decrypted.append(c);
                 }
-                isUpperCase=false;
+                isUpperCase = false;
             }
         }
         System.out.println("Decrypting.....");

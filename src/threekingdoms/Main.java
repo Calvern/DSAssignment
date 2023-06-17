@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
-
 /**
  *
  * @author user
@@ -42,11 +40,11 @@ public class Main {
                                                | 1. Wu Kingdom's Hierachy                  |                                        |
                                                | 2. Soldiers Arrangement and Searching     |  9. Strategic Attacking                |
                                                | 3. Borrowing Arrows with Straw Boats      | 10. Enemy Fottress Attack Simulation I |
-                                               | 4. Enemy Fottress Attack Simulation       | 11. Secured Encryption with AES        |
+                                               | 4. Enemy Fottress Attack Simulation       | 11. More Secured Encryption            |
                                                | 5. Food Harvesting                        | 12. Throwing Fireballs on Battleships  |
                                                | 6. Caesar Cipher Encryption               | 13. Food Harvesting I                  |
                                                | 7. Red Cliff on Fire                      |                                        |
-                                               | 8. Cao Cao at Hua Rong Road               |   |           
+                                               | 8. Cao Cao at Hua Rong Road               |                                        |           
                                                |===========================================|========================================|
                                    """);
                 System.out.print("Select your choice, or enter 0 to exit: ");
@@ -67,10 +65,10 @@ public class Main {
                         StrawBoat.ArrowBorrowing();
                         break;
                     case 4:
-                        BFS.fottrestAttacker(GraphProvider.getadjList());
+                        BFS.fottrestAttacker();
                         break;
                     case 5:
-                        HamiltonianCycle.FoodHarvester(graph);
+                        HamiltonianCycle.FoodHarvester();
                         break;
                     case 6:
                         CaeserCipher.start();
@@ -82,17 +80,19 @@ public class Main {
                         MazeEscaping.findEscapePath();
                         break;
                     case 9:
-                        Dijkstra.DijkstraPathFinder(graph.getAdjList());
+                        Dijkstra.DijkstraPathFinder();
                         break;
                     case 10:
-                        DijkstraTime.ShortestTimeCalculator(GraphProvider.getadjList());
+                        DijkstraTime.ShortestTimeCalculator();
                         break;
                     case 11:
+                        SecuredTextConverter.start();
+                        break;
                     case 12:
                         RedCliffonFire.RedCliffOnFire();
                         break;
                     case 13:
-                        FoodHarvestingExtra.FoodHarvesterI(GraphProvider.getGraph());
+                        FoodHarvestingExtra.FoodHarvesterI();
                         break;
                     default:
                         throw new IllegalArgumentException();
@@ -101,7 +101,7 @@ public class Main {
                 System.out.println("Please ENTER to continue your journey...");
                 sc.nextLine();
             } catch (IllegalArgumentException | InputMismatchException e) {
-                System.out.println("Please enter only within the options given.\n");
+                System.out.println("Invalid Input!! Please enter again.\n");
                 sc.nextLine();
 
             }

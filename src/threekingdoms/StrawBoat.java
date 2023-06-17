@@ -16,63 +16,50 @@ import java.util.Scanner;
  */
 public class StrawBoat {
 
-    public static String[] boatDirection;
-    public static int[] arrowReceived;
+    private static String[] boatDirection;
+    private static int[] arrowReceived;
+  
 
-   
-
-    public static void ArrowBorrowing() {
+    public static void ArrowBorrowing() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         HashMap<String, Integer> strawmen = new HashMap<>();
         HashMap<String, Integer> usedAttempts = new HashMap<>();
-        String[] directions = {"Front", "Left", "Right", "Back"};
-        /*System.out.println("Enter the number of straw men for each direction");
-        System.out.print("Front: ");
-        int front = sc.nextInt();
-        strawmen.put("Front", front);
-        usedAttempts.put("Front", 0);
-        System.out.print("Left: ");
-        int left = sc.nextInt();
-        strawmen.put("Left", left);
-        usedAttempts.put("Left", 0);
-        System.out.print("Right: ");
-        int right = sc.nextInt();
-        strawmen.put("Right", right);
-        usedAttempts.put("Right", 0);
-        System.out.print("Back: ");
-        int back = sc.nextInt();
-        strawmen.put("Back", back);
-        usedAttempts.put("Back", 0);
-        sc.nextLine();*/
-        System.out.println("Enter the number of straw men for each direction");
+        String[] directions = {"Front", "Left", "Right", "Back"};   
+        System.out.println("The river field is now filled with fog, lets start capturing some arrows from Cao Cao");
+        System.out.println("Enter the number of straw men for each direction between range 0-100");
         for (String direction : directions) {
             while (true) {
                 try {
                     System.out.print(direction + ": ");
                     int value = sc.nextInt();
+                    if(value>100||value<0){
+                        throw new IllegalArgumentException();
+                    }
                     strawmen.put(direction, value);
                     usedAttempts.put(direction, 0);
                     break; // Exit the loop on valid input
-                } catch (InputMismatchException e) {
+                } catch (IllegalArgumentException|InputMismatchException e) {
                     System.out.println("Invalid Input!! Please enter again\n");
                     sc.nextLine();
                 }
             }
         }
         sc.nextLine();
-
+        System.out.println("");
         outerloop:while (true) {
             try {
                 System.out.println("Enter the number of arrows for each wave in descending order, space to indicate a seperate wave:");
                 String waves = sc.nextLine();
                 String[] temp = waves.split("\\s+");
                 int[] arrows = new int[temp.length];
-
                 int prevArrow = Integer.MAX_VALUE;
                 for (int i = 0; i < temp.length; i++) {
                     int arrow = Integer.parseInt(temp[i]);
+                    if(arrow<0){
+                        throw new IllegalArgumentException();
+                    }
                     if (arrow > prevArrow) {
-                        System.out.println("Error!!!! Arrows should be in descending order.");
+                        System.out.println("Error!!!! Arrows should be in descending order.\n");
                         continue outerloop;
                     }
                     prevArrow = arrow;
@@ -85,13 +72,16 @@ public class StrawBoat {
 
                 int totalarrow = ArrowMaximizer(strawmen, arrows, usedAttempts);
                 System.out.println();
+                System.out.println("Capturing Arrows.....");
+                Thread.sleep(1000);
+                System.out.println();
                 String output = "Arrow Capturing Outcome:\n";
                 output += ("Boat direction: " + Arrays.toString(boatDirection) + "\n");
                 output += ("Arrow received: " + Arrays.toString(arrowReceived) + "\n");
-                output += "Total arrow received: " + totalarrow;
+                output += "Total arrow received: " + totalarrow+" arrows";
                 System.out.println(output);
                 break;
-            } catch (NumberFormatException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("Invalid Input!! Please enter again\n");
             }
         }
@@ -106,17 +96,18 @@ public class StrawBoat {
         for (int i = 0; i < arrows.length; i++) {
             String direction = getStrawmenDirection(directionMostStrawmen, lastDirection);
             int strawmen = strawmenDirection.get(direction);
-            if (strawmen == 0) {
-                Arrays.fill(boatDirection, i, arrows.length, "Invalid");
+            int arrow = (int) Math.floor(arrows[i] * (strawmen / 100.0));
+            if (arrow == 0||arrows[i]==0) {
+                Arrays.fill(boatDirection, i, arrows.length, "No Arrows To Receive");
                 Arrays.fill(arrowReceived, i, arrows.length, 0);
                 break;
             }
 
-            int arrow = (int) Math.floor(arrows[i] * (strawmen / 100.0));
+            
             arrowReceived[i] = arrow;
             boatDirection[i] = direction;
             totalarrow += arrow;
-            strawmenDirection.put(direction, StrawMenDepletion(direction, usedAttempts.get(direction), strawmen));
+            strawmenDirection.put(direction, StrawMenDepletion(usedAttempts.get(direction), strawmen));
             usedAttempts.put(direction, usedAttempts.get(direction) + 1);
             directionMostStrawmen.add(direction);
             lastDirection = direction;
@@ -134,7 +125,7 @@ public class StrawBoat {
         return curDirection;
     }
 
-    private static int StrawMenDepletion(String direction, int usedAttempts, int currentStrawmen) {
+    private static int StrawMenDepletion( int usedAttempts, int currentStrawmen) {
         switch (usedAttempts) {
             case 0:
                 return (int) Math.floor(currentStrawmen * 0.8);

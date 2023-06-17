@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import threekingdoms.Abilities;
+import threekingdoms.GraphProvider;
 import threekingdoms.TeamFormer;
 import threekingdoms.Teams;
 import threekingdoms.Warriors;
@@ -31,14 +32,17 @@ public class FoodHarvestingExtra {
     /*private static boolean isValidAbility(Abilities ab) {
         return (ab == Abilities.POLITIC || ab == Abilities.INTELLIGENCE);
     }*/
-    public static void FoodHarvesterI(Graph graph) {
+    public static void FoodHarvesterI() throws InterruptedException {
+        Graph graph=GraphProvider.getGraph();
         foodHarvested=0;
         Scanner sc = new Scanner(System.in);
         int size = graph.getSize();
         int nodeWithoutFood = -1;
         while (true) {
             try {
-                System.out.print("Enter node without food ( -1 if all nodes have food): ");
+                System.out.println("You will be assigning 3 Generals in Politics or Intelligence to harvest food at each node of the map (2-10), departing from Sun Wu's camp (Node 1)");
+                System.out.println("These are the buffs to the food production according to the type of teams chosen:\nS team in politic = food *2\nA team in politic = food *1.5\nB team in politic = food *1.2\nC team in politic = food * 1\n\nS team in intelligence = food *1.8\nA team in intelligence = food *1.3\nB team in intelligence = food *1\nC team in intelligence = food * 0.8\n\nThe food harvested at each node will be 100 initially\n");
+                System.out.print("Enter node that does not have food ( -1 if all nodes have food): ");
                 nodeWithoutFood = sc.nextInt();
                 if (!isValidNode(nodeWithoutFood)) {
                     throw new IllegalArgumentException();
@@ -60,12 +64,12 @@ public class FoodHarvestingExtra {
                 for (Warriors general : generals) {
                     System.out.println((index++) + ". " + general);
                 }
-                System.out.print("Please choose your generals among the list: ");
+                System.out.println("Please choose your generals among the list: ");
                 System.out.print("Warrior 1: ");
                 warrior1 = sc.nextLine();
-                System.out.println("Warrior 2: ");
+                System.out.print("Warrior 2: ");
                 warrior2 = sc.nextLine();
-                System.out.println("Warrior 3: ");
+                System.out.print("Warrior 3: ");
                 warrior3 = sc.nextLine();
 
                 if (!WarriorsCamp.hasGeneral(warrior1) || !WarriorsCamp.hasGeneral(warrior2) || !WarriorsCamp.hasGeneral(warrior3) | warrior1.equals(warrior2) || warrior1.equals(warrior3) || warrior2.equals(warrior3)) {
@@ -76,7 +80,7 @@ public class FoodHarvestingExtra {
                 System.out.println("Invalid Input! Please enter again.\n");
             }
         }
-
+        System.out.println();
         Abilities ab = null;
         while (true) {
             try {
@@ -95,14 +99,18 @@ public class FoodHarvestingExtra {
                 sc.nextLine();
             }
         }
+        System.out.println();
         Teams team = TeamFormer.evaluateTeam(new String[]{warrior1, warrior2, warrior3}, ab);
         System.out.println("The team that you have chosen is " + team.toString());
+        System.out.println();
         boolean[] visited = new boolean[size + 1];
         ArrayList<Integer> path = new ArrayList<>();
         ArrayList<String> paths = new ArrayList<>();
         targetPathSize = (nodeWithoutFood == -1) ? size : size - 1;
         path.add(1);
         visited[1] = true;
+        System.out.println("Harvesting Food...\n");
+        Thread.sleep(1000);
         paths = findHamCycles(graph, visited, path, 1, paths, nodeWithoutFood, team, ab, false);
         if (paths.isEmpty()) {
             targetPathSize = size;

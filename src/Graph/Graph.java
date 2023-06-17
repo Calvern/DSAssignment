@@ -41,10 +41,12 @@ public class Graph {
     }
 
     public void setEdge(int src, Object[] dest, Object[] weight, Object[] type) {
+
         for (int i = 0; i < dest.length; i++) {
             EdgeType edgetype = EdgeType.valueOf(type[i].toString());
             this.setEdge(src, (int) dest[i], (int) weight[i], edgetype);
         }
+
     }
 
     public boolean hasEdge(int src, int dst) {

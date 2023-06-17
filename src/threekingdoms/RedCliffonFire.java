@@ -36,7 +36,7 @@ public class RedCliffonFire {
                     }
                     sb.append(line).append("\n");
                 }
-                String structure = sb.toString().replaceAll(" ", "");
+                String structure = sb.toString().replaceAll("[ \\t]", "");
                 char[][] battleships = getBattleships(structure);
                 if (battleships == null) {
                     throw new IllegalArgumentException();

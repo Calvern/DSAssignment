@@ -13,6 +13,7 @@ import java.util.InputMismatchException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 import threekingdoms.ArmyTypes;
+import threekingdoms.GraphProvider;
 import threekingdoms.Warriors;
 import threekingdoms.WarriorsCamp;
 
@@ -26,7 +27,8 @@ public class DijkstraTime {
     private static final double ARCHER_SPEED = 1.0;
     private static final double INFANTRY_SPEED = 1.0;
 
-    public static void ShortestTimeCalculator(HashMap<Integer, ArrayList<Edge>> adjList) {
+    public static void ShortestTimeCalculator() throws InterruptedException {
+        HashMap<Integer, ArrayList<Edge>> adjList = GraphProvider.getadjList();
         Scanner sc = new Scanner(System.in);
         int dst = -1;
         String generalName = null;
@@ -137,11 +139,13 @@ public class DijkstraTime {
         Collections.reverse(path);
 
         double totalTime = calculateTotalTime(adjList, path, generalType);
-
-        System.out.print("Best Path: ");printPath(path);
+        System.out.println("Finding the shortest path to enemy base camp...\n");
+        Thread.sleep(1000);
+        System.out.print("Best Path: ");
+        printPath(path);
 
         System.out.printf(
-                "\nTotal Time Travelled: (%.2f hours)\n", totalTime);
+                "Total Time Travelled: (%.2f hours)\n", totalTime);
     }
 
     private static double getEdgeSpeed(EdgeType edgeType, ArmyTypes generalType) {

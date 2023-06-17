@@ -9,8 +9,8 @@ import Graph.Graph;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import threekingdoms.Abilities;
-import threekingdoms.Teams;
+import threekingdoms.GraphProvider;
+
 
 /**
  *
@@ -28,13 +28,15 @@ public class HamiltonianCycle {
     /*private static boolean isValidAbility(Abilities ab) {
         return (ab == Abilities.POLITIC || ab == Abilities.INTELLIGENCE);
     }*/
-    public static void FoodHarvester(Graph graph) {
+    public static void FoodHarvester() throws InterruptedException {
+        Graph graph=GraphProvider.getGraph();
         Scanner sc = new Scanner(System.in);
         int size = graph.getSize();
         int nodeWithoutFood = -1;
         while (true) {
             try {
-                System.out.print("Enter node without food ( -1 if all nodes have food): ");
+                System.out.println("You will be harvesting food at each node of the map (2-10) , departing from Sun Wu's camp (Node 1)");
+                System.out.print("Enter node that does not have food ( -1 if all nodes have food): ");
                 nodeWithoutFood = sc.nextInt();
                 if (!isValidNode(nodeWithoutFood)) {
                     throw new IllegalArgumentException();
@@ -57,6 +59,8 @@ public class HamiltonianCycle {
         targetPathSize = (nodeWithoutFood == -1) ? size : size - 1;
         path.add(1);
         visited[1] = true;
+        System.out.println("Harvesting Food...\n");
+        Thread.sleep(1000);
         paths = findHamCycles(graph, visited, path, 1, paths, nodeWithoutFood);
         if (paths.isEmpty()) {
             targetPathSize = size;
@@ -64,7 +68,7 @@ public class HamiltonianCycle {
             if (paths.isEmpty()) {
                 System.out.println("No Paths Found!");
             } else {
-                System.out.println("The Node Without Food " + nodeWithoutFood + " has to be travelled in order to travel all nodes with food");
+                System.out.println("The Node Without Food (Node " + nodeWithoutFood + ") has to be travelled in order to travel all nodes with food\n");
                 System.out.println("Possible paths:");
                 for (String cycles : paths) {
 

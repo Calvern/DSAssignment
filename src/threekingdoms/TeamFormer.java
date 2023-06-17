@@ -45,7 +45,7 @@ public class TeamFormer {
             int end = generals.length - 1;
             while (start < end) {
                 int sum = generals[i].getAbility(ab) + generals[start].getAbility(ab) + generals[end].getAbility(ab);
-                if (sum >= type.getMinscore() && sum < type.getMaxscore()) {
+                if (sum >= type.getMinscore() && sum <= type.getMaxscore()) {
                     ArrayList<Warriors> warriors = new ArrayList<>(Arrays.asList(generals[i], generals[start], generals[end]));
                     team.add(warriors);
                     end--;

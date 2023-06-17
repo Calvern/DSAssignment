@@ -31,7 +31,6 @@ public class JsonReader {
             return content;
         } catch (IOException e) {
             System.out.println("Problem with file I/O");
-            e.printStackTrace();
             System.exit(0);
         }
         return null;
@@ -57,26 +56,36 @@ public class JsonReader {
             return warriors;
         } catch (IllegalArgumentException e) {
             System.out.println("The value of attributes should be within 0 to 100. Please check on Warriors.json file");
-            e.printStackTrace();
             System.exit(0);
         } catch (JSONException e) {
             System.out.println("Invalid data. Please check on Warriors.json file");
-            e.printStackTrace();
             System.exit(0);
         }
         return null;
     }
 
     public static Graph getGraph(String JSONContent) {
-        JSONObject map = new JSONObject(JSONContent);
-        int size = map.length();
-        Graph graph = new Graph(size);
-        for (int i = 0; i < size; i++) {
-            Object[] edges = map.getJSONObject(Integer.toString(i + 1)).getJSONArray("edges").toList().toArray();
-            Object[] weights = map.getJSONObject(Integer.toString(i + 1)).getJSONArray("weight").toList().toArray();
-            Object[] typeEdge = map.getJSONObject(Integer.toString(i + 1)).getJSONArray("edgeType").toList().toArray();
-            graph.setEdge(i + 1, edges, weights, typeEdge);
+        try {
+            JSONObject map = new JSONObject(JSONContent);
+            int size = map.length();
+            Graph graph = new Graph(size);
+            for (int i = 0; i < size; i++) {
+                Object[] edges = map.getJSONObject(Integer.toString(i + 1)).getJSONArray("edges").toList().toArray();
+                Object[] weights = map.getJSONObject(Integer.toString(i + 1)).getJSONArray("weight").toList().toArray();
+                Object[] typeEdge = map.getJSONObject(Integer.toString(i + 1)).getJSONArray("edgeType").toList().toArray();
+                if (edges.length != weights.length || edges.length != typeEdge.length || weights.length != typeEdge.length) {
+                    throw new IllegalArgumentException();
+                }
+                graph.setEdge(i + 1, edges, weights, typeEdge);
+            }
+            return graph;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid data. Please check on Map.json file");
+            System.exit(0);
+        } catch (JSONException e) {
+            System.out.println("Invalid data. Please check on Map.json file.");
+            System.exit(0);
         }
-        return graph;
+        return null;
     }
 }

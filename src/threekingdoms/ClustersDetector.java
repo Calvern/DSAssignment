@@ -20,17 +20,21 @@ public class ClustersDetector {
         StringBuilder sb = new StringBuilder();
         while (true) {
             try {
-                System.out.println("Please enter position of battleships in the 2D matrix form, where 1 denotes battleship and 0 denotes position without battleship");
+                System.out.println("Please enter position of battleships in the 2D matrix form, where 1 denotes battleship and 0 denotes position without battleship.\nEnter a blank line if you have completed your input.");
                 String line;
                 while (sc.hasNextLine()) {
                     line = sc.nextLine();
 
-                    if (line.isEmpty()) {
+                    if (line.isBlank()) {
                         break;
                     }
                     sb.append(line).append("\n");
                 }
-                String structure = sb.toString().replaceAll(" ", "");
+                String structure = sb.toString().replaceAll("[ \\t]", "");
+                System.out.println(structure);
+                if(structure.isBlank()){
+                    throw new IllegalArgumentException();
+                }
                 char[][] battleships = getBattleships(structure);
                 if (battleships == null) {
                     throw new IllegalArgumentException();

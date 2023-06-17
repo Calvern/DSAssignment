@@ -12,6 +12,7 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import threekingdoms.GraphProvider;
 
 /**
  *
@@ -19,25 +20,27 @@ import java.util.Scanner;
  */
 public class BFS {
 
-    public static void fottrestAttacker(HashMap<Integer, ArrayList<Edge>> adjList) {
+    public static void fottrestAttacker() throws InterruptedException {
         
         Scanner sc = new Scanner(System.in);
+        HashMap<Integer,ArrayList<Edge>>adjList=GraphProvider.getadjList();
         while (true) {
-            System.out.print("Enter the base camp for the enemy base camp: ");
+            System.out.println("You are now trying to find the best path to enemy base camp without considering the distances between each node. Our base camp is Node 1.");
+            System.out.print("Enter the base camp for the enemy base camp (2-10): ");
             try {
                 int dst = sc.nextInt();
-                if (!adjList.containsKey(dst)) {
+                if (dst<2||dst>10) {
                     throw new IllegalArgumentException();
                 }
                 System.out.println();
                 ArrayList<ArrayList<Integer>> allPaths = BFS(adjList, dst);
+                System.out.println("Finding the shortest path to enemy base camp...\n");
+                Thread.sleep(1000);
                 if (allPaths.isEmpty()) {
                     System.out.println("No Paths are found from node 1 to base camp");
                     break;
                 }
                 ArrayList<ArrayList<Integer>> bestPaths = BFS.findBestPath(allPaths);
-                System.out.println("All possible paths:");
-                BFS.printPaths(allPaths);
                 System.out.println("\nBest Paths:");
                 BFS.printPaths(bestPaths);
                 break;
