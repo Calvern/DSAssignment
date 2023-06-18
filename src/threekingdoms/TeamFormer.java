@@ -49,13 +49,12 @@ public class TeamFormer {
                     ArrayList<Warriors> warriors = new ArrayList<>(Arrays.asList(generals[i], generals[start], generals[end]));
                     team.add(warriors);
                     end--;
-                    //start++;
+
                 } else if (sum < type.getMinscore()) {
                     end--;
-                    //start++;
+
                 } else {
                     start++;
-                    //end--;
                 }
             }
         }

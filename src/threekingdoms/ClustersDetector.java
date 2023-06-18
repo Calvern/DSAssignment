@@ -31,7 +31,6 @@ public class ClustersDetector {
                     sb.append(line).append("\n");
                 }
                 String structure = sb.toString().replaceAll("[ \\t]", "");
-                System.out.println(structure);
                 if(structure.isBlank()){
                     throw new IllegalArgumentException();
                 }

@@ -220,9 +220,12 @@ public class SecuredTextConverter {
         String encryptedMessage = "";
         while (true) {
             try {
-                System.out.println("Rules:\n1.'^' indicating character after this is capatalized\n2.'&' indicating space\n3.'()' indicating inverted text inside parenthesis.\n4.'@' indicating a tab character\n5.Sequence of &num{text} indicates that all of the characters in text hould be subtracted with num before decrypting it\n\nThe precedence of condition 5 is over condition 3.\nPlease make sure that you use these both conditions properly or else you will not get your desired output\n\nNo spaces, tabs and capital letters are allowed in the text.\n\nUSE THESE SYMBOLS CAUTIOUSLY");
-                System.out.print("Please enter the text you want to decrypt : ");
+                System.out.println("Rules:\n1.'^' indicating character after this is capatalized\n2.'&' indicating space\n3.'()' indicating inverted text inside parenthesis\n4.'@' indicating a tab character\n5.Sequence of &num{text} indicates that all of the characters in text should be subtracted with num before decrypting it\n\nThe precedence of condition 5 is over condition 3.\n\nPlease make sure that you use these both conditions properly or else you will not get your desired output.\n\nNo spaces, tabs and capital letters are allowed in the text\n\nUSE THESE SYMBOLS CAUTIOUSLY");
+                System.out.print("Please enter the text you want to decrypt: ");
                 encryptedMessage = sc.nextLine();
+                if(encryptedMessage.isBlank()){
+                    throw new IllegalArgumentException();
+                }
                 for (char c : encryptedMessage.toCharArray()) {
                     if (Character.isUpperCase(c) || Character.isSpaceChar(c) || c == '\t') {
                         throw new IllegalArgumentException();
@@ -271,6 +274,7 @@ public class SecuredTextConverter {
             matcher = patternInverse.matcher(originalText);
         }
         String oriText = originalText.toString();
+        
         StringBuilder decrypted = new StringBuilder();
         StringBuilder reversed = new StringBuilder();
         int keyIndex = 0;
@@ -408,7 +412,6 @@ public class SecuredTextConverter {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        String plaintext = "Advise Cao Cao to use The Chain Strategem, which is to chain his battleships with strong iron chains.";
         start();
     }
 }

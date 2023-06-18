@@ -143,7 +143,6 @@ public class DijkstraTime {
         Thread.sleep(1000);
         System.out.print("Best Path: ");
         printPath(path);
-
         System.out.printf(
                 "Total Time Travelled: (%.2f hours)\n", totalTime);
     }
@@ -189,6 +188,7 @@ public class DijkstraTime {
 
         return totalTime;
     }
+    
 
     private static void printPath(ArrayList<Integer> path) {
         String str = "";

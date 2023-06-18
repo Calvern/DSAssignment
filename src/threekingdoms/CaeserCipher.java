@@ -60,8 +60,11 @@ public class CaeserCipher {
             try {
                 System.out.print("Please enter the shifting position: ");
                 shift = sc.nextInt();
+                if(shift<=0){
+                    throw new IllegalArgumentException();
+                }
                 break;
-            } catch (InputMismatchException e) {
+            } catch (IllegalArgumentException | InputMismatchException e) {
                 System.out.println("Invalid Input!! Please enter again.\n");
                 sc.nextLine();
             }
@@ -123,7 +126,6 @@ public class CaeserCipher {
                 encrypted.insert(index2 + 2, ")");
                 System.out.println();
             } catch (IllegalArgumentException | InputMismatchException e) {
-                System.out.println(e.toString());
                 System.out.println("Invalid Input!!. Please enter again.\n");
                 sc.nextLine();
             }
@@ -157,11 +159,14 @@ public class CaeserCipher {
         String encryptedMessage = "";
         while (true) {
             try {
-                System.out.println("Rules:\n1.'^' indicating character after this is capatalized\n2.'&' indicating space\n3.'()' indicating inverted text inside parenthesis.\n4.'@' indicating a tab character\n\nThus, no spaces, tabs and capital letters are allowed in the text.\n\nUSE THESE SYMBOLS CAUTIOUSLY");
-                System.out.print("Please enter the text you want to decrypt : ");
+                System.out.println("Rules:\n1.'^' indicating character after this is capatalized\n2.'&' indicating space\n3.'()' indicating inverted text inside parenthesis\n4.'@' indicating a tab character\n\nThus, no spaces, tabs and capital letters are allowed in the text.\n\nUSE THESE SYMBOLS CAUTIOUSLY");
+                System.out.print("Please enter the text you want to decrypt: ");
                 encryptedMessage = sc.nextLine();
+                if (encryptedMessage.isBlank()) {
+                    throw new IllegalArgumentException();
+                }
                 for (char c : encryptedMessage.toCharArray()) {
-                    if (Character.isUpperCase(c) || Character.isSpaceChar(c)||c=='\t') {
+                    if (Character.isUpperCase(c) || Character.isSpaceChar(c) || c == '\t') {
                         throw new IllegalArgumentException();
                     }
                 }
@@ -176,12 +181,16 @@ public class CaeserCipher {
             try {
                 System.out.print("Please enter the shifting position: ");
                 shift = sc.nextInt();
+                if (shift <= 0) {
+                    throw new IllegalArgumentException();
+                }
                 break;
-            } catch (InputMismatchException e) {
+            } catch (IllegalArgumentException | InputMismatchException e) {
                 System.out.println("Invalid Input!! Please enter again.\n");
                 sc.nextLine();
             }
         }
+        sc.nextLine();
         System.out.println();
         StringBuilder decrypted = new StringBuilder();
         StringBuilder reversed = new StringBuilder();

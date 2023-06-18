@@ -57,7 +57,7 @@ public class WarriorsSorter {
         Abilities ab = null;
         int target = -1;
         while (true) {
-            System.out.print("1.Strength\n2.Leadership\n3.Intelligence\n4.Politics\n5.Hit Point\nEnter the attiribute that you want to search : ");
+            System.out.print("1.Strength\n2.Leadership\n3.Intelligence\n4.Politics\n5.Hit Point\nEnter the attiribute that you want to search: ");
             try {
                 int choice = sc.nextInt();
                 switch (choice) {
@@ -124,7 +124,7 @@ public class WarriorsSorter {
         Abilities ab = null;
         int target = -1;
         while (true) {
-            System.out.print("1.Strength\n2.Leadership\n3.Intelligence\n4.Politics\n5.Hit Point\nEnter the attiribute to search  : ");
+            System.out.print("1.Strength\n2.Leadership\n3.Intelligence\n4.Politics\n5.Hit Point\nEnter the attiribute to search: ");
             try {
                 int choice = sc.nextInt();
                 switch (choice) {

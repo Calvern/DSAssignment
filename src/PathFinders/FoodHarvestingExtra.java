@@ -33,15 +33,15 @@ public class FoodHarvestingExtra {
         return (ab == Abilities.POLITIC || ab == Abilities.INTELLIGENCE);
     }*/
     public static void FoodHarvesterI() throws InterruptedException {
-        Graph graph=GraphProvider.getGraph();
-        foodHarvested=0;
+        Graph graph = GraphProvider.getGraph();
+        foodHarvested = 0;
         Scanner sc = new Scanner(System.in);
         int size = graph.getSize();
         int nodeWithoutFood = -1;
         while (true) {
             try {
-                System.out.println("You will be assigning 3 Generals in Politics or Intelligence to harvest food at each node of the map (2-10), departing from Sun Wu's camp (Node 1)");
-                System.out.println("These are the buffs to the food production according to the type of teams chosen:\nS team in politic = food *2\nA team in politic = food *1.5\nB team in politic = food *1.2\nC team in politic = food * 1\n\nS team in intelligence = food *1.8\nA team in intelligence = food *1.3\nB team in intelligence = food *1\nC team in intelligence = food * 0.8\n\nThe food harvested at each node will be 100 initially\n");
+                System.out.println("You will be assigning 3 Generals in Politics or Intelligence to harvest food at each node of the map (2-10), departing from Sun Wu's camp (Node 1)\n");
+                System.out.println("These are the buffs to the food production according to the type of teams chosen:\nS team in politic = food*2.0\nA team in politic = food*1.5\nB team in politic = food*1.2\nC team in politic = food*1.0\n\nS team in intelligence = food*1.8\nA team in intelligence = food*1.3\nB team in intelligence = food*1.0\nC team in intelligence = food*0.8\n\nThe food harvested at each node will be 100 initially\n");
                 System.out.print("Enter node that does not have food ( -1 if all nodes have food): ");
                 nodeWithoutFood = sc.nextInt();
                 if (!isValidNode(nodeWithoutFood)) {
@@ -61,9 +61,11 @@ public class FoodHarvestingExtra {
                 System.out.println("List of Generals");
                 int index = 1;
                 ArrayList<Warriors> generals = WarriorsCamp.getGenerals();
+                System.out.printf("%-20s%-11s%-14s%n", "Name", "Politic", "Intelligence");
                 for (Warriors general : generals) {
-                    System.out.println((index++) + ". " + general);
+                    System.out.printf("%-20s%7s%16s%n", (Integer.toString(index++)) + "." + general, general.getPolitic(), general.getIntelligence());
                 }
+                System.out.println();
                 System.out.println("Please choose your generals among the list: ");
                 System.out.print("Warrior 1: ");
                 warrior1 = sc.nextLine();
@@ -111,10 +113,10 @@ public class FoodHarvestingExtra {
         visited[1] = true;
         System.out.println("Harvesting Food...\n");
         Thread.sleep(1000);
-        paths = findHamCycles(graph, visited, path, 1, paths, nodeWithoutFood, team, ab, false);
+        paths = findHamCycles(graph, visited, path, 1, paths, nodeWithoutFood);
         if (paths.isEmpty()) {
             targetPathSize = size;
-            paths = findHamCycles(graph, visited, path, 1, paths, -1, team, ab, true);
+            paths = findHamCycles(graph, visited, path, 1, paths, -1);
             if (paths.isEmpty()) {
                 System.out.println("No Paths Found!");
             } else {
@@ -124,6 +126,7 @@ public class FoodHarvestingExtra {
 
                     System.out.println(cycles);
                 }
+                foodHarvested=(targetPathSize-2)*calculateHarvestedNodes(team,ab);
                 System.out.println("Food Harvested: " + foodHarvested);
             }
         } else {
@@ -132,11 +135,12 @@ public class FoodHarvestingExtra {
 
                 System.out.println(cycles);
             }
+            foodHarvested=(targetPathSize-1)*calculateHarvestedNodes(team,ab);
             System.out.println("Food Harvested: " + foodHarvested);
         }
     }
 
-    private static ArrayList<String> findHamCycles(Graph graph, boolean[] visited, ArrayList<Integer> path, int pos, ArrayList<String> paths, int nodeWithoutFood, Teams team, Abilities ab, boolean secAttempt) {
+    private static ArrayList<String> findHamCycles(Graph graph, boolean[] visited, ArrayList<Integer> path, int pos, ArrayList<String> paths, int nodeWithoutFood) {
         if (pos == targetPathSize) {
             for (Edge edge : graph.getAdjList().get(path.get(path.size() - 1))) {
                 if (edge.getDest() == 1) {
@@ -156,12 +160,12 @@ public class FoodHarvestingExtra {
             if (isSafe(graph, visited, i, nodeWithoutFood, path)) {
                 path.add(i);
                 visited[i] = true;
-                paths = findHamCycles(graph, visited, path, pos + 1, paths, nodeWithoutFood, team, ab, secAttempt);
+                paths = findHamCycles(graph, visited, path, pos + 1, paths, nodeWithoutFood);
                 path.remove(path.size() - 1);
                 visited[i] = false;
             }
         }
-        foodHarvested = (secAttempt) ? (targetPathSize - 2) * calculateHarvestedNodes(team, ab) : (targetPathSize-1 )* calculateHarvestedNodes(team, ab);
+        //foodHarvested = (secAttempt) ? (targetPathSize - 2) * calculateHarvestedNodes(team, ab) : (targetPathSize - 1) * calculateHarvestedNodes(team, ab);
         return paths;
     }
 
